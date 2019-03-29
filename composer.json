@@ -1,0 +1,16 @@
+{
+	"name": "packages/tomos",
+	"description": "Simple Backend for Frontend",
+	"require": {
+		"php": ">=7.1.3",
+		"mako/framework": "5.7.*",
+		"packages/mailer": "*",
+		"packages/brio": "*"
+		
+	},
+	"autoload": {
+		"psr-4": {
+			"placer\\tomos\\": "src"
+		}
+	}
+}
