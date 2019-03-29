@@ -6,11 +6,11 @@ use mako\http\routing\Controller;
 
 class WelcomeController extends Controller
 {
-	public function index()
-	{
+    public function index()
+    {
         $data = $this->tomos->option('verify');
 
-		return $this->view->render('tomos::welcome', ['data' => (int) $data]);
-	}
+        return $this->view->render('tomos::welcome', ['data' => (int) $data]);
+    }
 
 }

@@ -7,11 +7,22 @@ use mako\syringe\Container;
 class Tomos
 {
     /**
-     * Container.
+     * Container
      *
      * @var \mako\syringe\Container
      */
     protected $container;
+
+    /**
+     * Options
+     *
+     * @var array
+     */
+    protected $options = [
+        'register' => false,
+        'reset'    => false,
+        'verify'   => false,
+    ];
 
     /**
      * Constructor
@@ -21,6 +32,10 @@ class Tomos
     public function __construct(Container $container)
     {
         $this->container = $container;
+
+        $config = $container->get('config')->get('tomos::config');
+
+        $this->options = array_merge($this->options, $config);
     }
 
     /**
@@ -31,9 +46,7 @@ class Tomos
      */
     public function option(string $key)
     {
-        $config = $this->container->get('config');
-
-        return $config->get('tomos::config')[$key] ?? null;
+        return $this->options[$key] ?? null;
     }
 
 }
