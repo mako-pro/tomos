@@ -8,7 +8,7 @@ class WelcomeController extends Controller
 {
     public function index()
     {
-        $data = $this->tomos->option('verify');
+        $data = $this->tomos->verify;
 
         return $this->view->render('tomos::welcome', ['data' => (int) $data]);
     }

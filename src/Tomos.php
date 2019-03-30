@@ -44,7 +44,7 @@ class Tomos
      * @param $string $key
      * @return mixed
      */
-    public function option(string $key)
+    public function __get(string $key)
     {
         return $this->options[$key] ?? null;
     }

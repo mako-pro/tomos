@@ -20,7 +20,7 @@ class PublishAssets extends Command
      * @var array
      */
     protected $commandInformation = [
-        'description' => 'Publish package asets by create a symbolic link."',
+        'description' => 'Publish package assets by create a symbolic link."',
     ];
 
     /**
@@ -34,30 +34,27 @@ class PublishAssets extends Command
         $targetPath  = $package->getPath() . '/public';
         $publicPath  = realpath(MAKO_APPLICATION_PATH . '/../public');
         $linkPath    = $publicPath . '/' . $packageName;
-
-        $packageNameArr = explode('/', $packageName);
-        $dirName        = $packageNameArr[0];
-        $linkSubPath    = $publicPath . '/' . $dirName;
+        $vendorName  = explode('/', $packageName)[0];
+        $vendorDir   = $publicPath . '/' . $vendorName;
 
         if (file_exists($linkPath))
             return $this->error("The [$packageName] directory already exists!");
 
-        if (! is_dir($linkSubPath))
+        if (! is_dir($vendorDir))
         {
             $old = umask(0);
 
-            if (! @mkdir($linkSubPath, 0777, true))
-                return $this->error("Failed to create directory [ $linkSubPath ]");
+            if (! @mkdir($vendorDir, 0777, true))
+                return $this->error("Failed to create directory [$vendorDir]");
 
             umask($old);
         }
 
-        if (! is_writable($linkSubPath))
-            return $this->error("Directory [ $linkSubPath ] not writable!");
+        if (! is_writable($vendorDir))
+            return $this->error("Directory [$vendorDir] not writable!");
 
-        $this->makeLink($targetPath, $linkPath);
-
-        $this->write("The [$packageName] directory has been linked.");
+        if ($this->makeLink($targetPath, $linkPath))
+            $this->write("The [$packageName] directory has been linked.");
     }
 
     /**
