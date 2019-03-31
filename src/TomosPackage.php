@@ -25,13 +25,15 @@ class TomosPackage extends Package
      */
     protected function bootstrap()
     {
+        $options = $this->container->get('config')->get('tomos::config');
+
         $routes = $this->container->get('routes');
 
         include $this->getPath() . '/routing/routes.php';
 
-        $this->container->registerSingleton([Tomos::class, 'tomos'], function ()
+        $this->container->registerSingleton([Tomos::class, 'tomos'], function () use($options)
         {
-            return new Tomos($this->container);
+            return new Tomos($this->container, $options);
         });
     }
 

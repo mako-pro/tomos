@@ -18,24 +18,18 @@ class Tomos
      *
      * @var array
      */
-    protected $options = [
-        'register' => false,
-        'reset'    => false,
-        'verify'   => false,
-    ];
+    protected $options;
 
     /**
      * Constructor
      *
      * @param Container  $container  IoC container instance
+     * @param array  $options
      */
-    public function __construct(Container $container)
+    public function __construct(Container $container, $options = [])
     {
         $this->container = $container;
-
-        $config = $container->get('config')->get('tomos::config');
-
-        $this->options = array_merge($this->options, $config);
+        $this->options   = $options;
     }
 
     /**
