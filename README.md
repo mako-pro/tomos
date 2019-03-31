@@ -6,8 +6,8 @@ Simple Backend for Frontend.
 2. Add dependency in `composer.json` file:
 ```json
 "require": {
-	"php": ">=7.0.0",
-	"mako/framework": "5.7.*",
+	"php": ">=7.2.0",
+	"mako/framework": "6.0.*",
 	"packages/tomos": "*"
 }
 ```
