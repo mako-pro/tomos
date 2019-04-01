@@ -71,7 +71,7 @@ class PublishAssets extends Command
 
         $mode = is_dir($target) ? 'J' : 'H';
 
-        exec("mklink /{$mode} \"{$link}\" \"{$target}\"");
+        return exec("mklink /{$mode} \"{$link}\" \"{$target}\"");
     }
 
 }
