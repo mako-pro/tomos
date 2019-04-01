@@ -23,7 +23,7 @@ class TomosPackage extends Package
     /**
      * {@inheritdoc}
      */
-    protected function bootstrap()
+    protected function bootstrap(): void
     {
         $options = $this->container->get('config')->get('tomos::config');
 
