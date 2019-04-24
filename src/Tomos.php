@@ -33,6 +33,27 @@ class Tomos
     }
 
     /**
+     * Send activation email
+     *
+     * @param  integer $id User id
+     * @return mixed
+     */
+    public function sendActivationEmail($id)
+    {
+        $gatekeeper = $this->container->get('gatekeeper');
+        $mailer     = $this->container->get('mailer');
+
+        $user = $gatekeeper->getUserRepository()->getById($id);
+
+        $mailer->message('tomos-verification')
+            ->with('token', $user->getActionToken())
+            ->with('name', $user->username)
+            ->to($user->email, $user->username)
+            ->send(true);
+
+    }
+
+    /**
      * Getter for options
      *
      * @param $string $key

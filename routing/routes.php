@@ -24,4 +24,8 @@ $routes->group(['prefix' => $options['prefix'], 'namespace' => 'placer\tomos\con
         $routes->get('/email/resend', 'VerificationController::resend', 'tomos.verification.resend');
     }
 
+    $routes->get('/login', 'LoginController::page', 'tomos.login.page');
+    $routes->post('/login', 'LoginController::handler', 'tomos.login.handler');
+    $routes->get('/logout', 'LogoutController::page', 'tomos.logout.page');
+
 });

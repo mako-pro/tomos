@@ -22,7 +22,7 @@ class Migration_20190401115219 extends Migration
 		(
 			"CREATE TABLE `groups` (
 				`id` int(11) unsigned NOT NULL AUTO_INCREMENT,
-				`name` varchar(32) COLLATE utf8_general_ci NOT NULL,
+				`name` varchar(32) NOT NULL,
 				`description` varchar(255) DEFAULT '',
 				`created_at` datetime NOT NULL,
 				`updated_at` datetime NOT NULL,
