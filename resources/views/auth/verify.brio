@@ -1,0 +1,14 @@
+{extends 'tomos::layouts.auth'}
+{block 'title'}{parent} - Verify Email{/block}
+{block 'card'}
+  <div class="card">
+    <div class="card-body text-center p-5">
+      <img class="d-block mx-auto mb-4" src="{$assets}/img/icons/sent.svg" alt="shield" width="100">
+      <h4 class="mb-3">Verify Your Email Address</h4>
+      <p>Before proceeding, please check your email <code>{session()->getFlash('email')}</code> for a verification link.</p>
+      <p class="fs--1 text-800 mb-0">If you did not receive the email,
+        <a href="{url()->toRoute('tomos.verification.resend')}">click here to request another</a>.
+      </p>
+    </div>
+  </div>
+{/block}

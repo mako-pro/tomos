@@ -8,4 +8,7 @@ return [
     'reset'    => true,
     'verify'   => true,
 
+    // Groups
+    'default_group' => 'members',
+
 ];

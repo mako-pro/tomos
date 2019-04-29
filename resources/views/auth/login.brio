@@ -1,0 +1,32 @@
+{extends 'tomos::layouts.auth'}
+{block 'title'}{parent} - Login{/block}
+{block 'card'}
+  <div class="card">
+    <div class="card-body p-5">
+      <div class="row text-left">
+        <div class="col-auto mb-3">
+          <h4>Login</h4>
+        </div>
+      </div>
+      <form>
+        <div class="form-group">
+          <input class="form-control" type="email" placeholder="Email address">
+        </div>
+        <div class="form-group">
+          <input class="form-control" type="password" placeholder="Password">
+        </div>
+          <div class="custom-control custom-checkbox">
+            <input class="custom-control-input" id="customCheckRemember" type="checkbox">
+            <label class="custom-control-label" for="customCheckRemember">Remember me</label>
+          </div>
+        <div class="form-group">
+          <button class="btn btn-primary btn-block py-2 mt-3" type="submit" name="submit">Login</button>
+        </div>
+        <p class="row px-3 mb-0 justify-content-between fs--1 text-800">
+          <a href="{url()->toRoute('tomos.register.page')}">Want to create an account?</a>
+          <a href="{url()->toRoute('tomos.forgot.page')}">Forget password?</a>
+        </p>
+      </form>
+    </div>
+  </div>
+{/block}

@@ -1,0 +1,19 @@
+{extends 'tomos::layouts.auth'}
+{block 'title'}{parent} - Forget Password{/block}
+{block 'card'}
+  <div class="card">
+    <div class="card-body text-center p-5">
+      <h4 class="mb-3">Forgot your password?</h4>
+      <p class="fs--1 text-600">Enter your email and we'll send you a reset link.</p>
+      <form class="mt-4">
+        <div class="form-group">
+          <input class="form-control" type="email" placeholder="Email address" >
+        </div>
+        <div class="form-group">
+          <button class="btn btn-primary btn-block py-2 mt-3" type="submit" name="submit">Send reset link</button>
+        </div>
+        <a class="fs--1 text-600" href="{url()->base()}">I can't recover my account using this page</a>
+      </form>
+    </div>
+  </div>
+{/block}

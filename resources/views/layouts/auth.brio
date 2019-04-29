@@ -1,0 +1,38 @@
+{set $assets = url()->to('/placer/tomos')}
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <title>{block 'title'}Tomos{/block}</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#ffffff">
+    <meta name="description" content="Simple Backend for Frontend">
+    <meta name="csrf-token" content="{token()}">
+    <meta name="msapplication-TileImage" content="{$assets}/img/favicons/mstile-150x150.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="{$assets}/img/favicons/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="{$assets}/img/favicons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="{$assets}/img/favicons/favicon-16x16.png">
+    <link rel="shortcut icon" type="image/x-icon" href="{$assets}/img/favicons/favicon.ico">
+    <link rel="manifest" href="{$assets}/img/favicons/manifest.json">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,500,600,700%7cPoppins:100,200,300,400,500,600,700,800,900">
+    <link rel="stylesheet" href="{$assets}/css/app.css">
+  </head>
+  <body>
+    <main class="main">
+      <div class="container">
+        <div class="row flex-center min-vh-50 py-6">
+          <div class="col-sm-11 col-md-9 col-lg-7 col-xl-6 col-xxl-5">
+            <a class="d-block text-center mb-5" href="{url()->base()}">
+              <img src="{$assets}/img/logos/logo-mid.png" class="outline-none" alt="Tomos" width="165">
+            </a>
+            {include "tomos::partials.message"}
+            {block "card"}{/block}
+          </div>
+        </div>
+      </div>
+    </main>
+    <script src="{$assets}/js/app.js"></script>
+  </body>
+</html>

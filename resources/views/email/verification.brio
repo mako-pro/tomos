@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Email verification</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+</head>
+<body>
+<div>
+  <h1>Email Verification</h1>
+    <h3>Hello, {$name}!<h3>
+    <p>Please confirm your registration.</p>
+    <p>Click here:
+        <a href="{url()->toRoute('tomos.verification.verify', ['id' => $token])}">
+            {url()->toRoute('tomos.verification.verify', ['id' => $token])}
+        </a>
+    </p>
+</div>
+</script>
+</body>
+</html>

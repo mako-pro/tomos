@@ -1,0 +1,15 @@
+{extends 'tomos::layouts.auth'}
+{block 'title'}{parent} - Logout{/block}
+{block 'card'}
+  <div class="card">
+    <div class="card-body text-center p-5">
+      <img class="d-block mx-auto mb-4" src="{$assets}/img/icons/shield.svg" alt="shield" width="120">
+      <h4>See you again!</h4>
+      <p>Thanks for using the Site. You are <br class="d-none d-sm-block">now successfully signed out.</p>
+      <a class="btn btn-primary btn-sm py-2 mt-3" href="{url()->toRoute('tomos.login.page')}">
+        <span class="fas fa-sign-in-alt mr-2"></span>
+        Return to Login
+      </a>
+    </div>
+  </div>
+{/block}
