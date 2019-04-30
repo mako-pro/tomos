@@ -1,7 +1,7 @@
 # Tomos Package
 Simple Backend for Frontend.
 
-## Installing Brio
+## Installing Tomos
 1. Unzip package into a packages directory within your application's root directory.  
 2. Add dependency in `composer.json` file:
 ```json
