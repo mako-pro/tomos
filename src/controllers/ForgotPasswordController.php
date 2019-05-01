@@ -8,7 +8,7 @@ class ForgotPasswordController extends Controller
 {
     public function page()
     {
-        return __METHOD__;
+        return $this->view->render('tomos::auth.forgot');
     }
 
     public function handler()

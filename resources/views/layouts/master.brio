@@ -1,0 +1,124 @@
+{set $assets = url()->to('/placer/tomos')}
+{set $path = request()->getPath()}
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <title>{block 'title'}Tomos{/block}</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#ffffff">
+    <meta name="description" content="Simple Backend for Frontend">
+    <meta name="csrf-token" content="{token()}">
+    <meta name="msapplication-TileImage" content="{$assets}/img/favicons/mstile-150x150.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="{$assets}/img/favicons/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="{$assets}/img/favicons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="{$assets}/img/favicons/favicon-16x16.png">
+    <link rel="shortcut icon" type="image/x-icon" href="{$assets}/img/favicons/favicon.ico">
+    <link rel="manifest" href="{$assets}/img/favicons/manifest.json">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,500,600,700%7cPoppins:100,200,300,400,500,600,700,800,900">
+    <link rel="stylesheet" href="{$assets}/css/app.css">
+  </head>
+  <body>
+    <main class="main" id="top">
+      <div class="container">
+        <nav class="navbar navbar-vertical navbar-expand-xl navbar-light navbar-glass">
+          <a href="{url()->toRoute('tomos.dashboard.page')}" class="navbar-brand text-left my-3">
+            <img src="{$assets}/img/logos/logo-small.png" alt="Tomos" width="90">
+          </a>
+          <div class="collapse navbar-collapse" id="navbarVerticalCollapse">
+            <ul class="navbar-nav flex-column">
+              <li class="nav-item{if $path|match:"*\/dashboard"} active{/if}">
+                <a href="{url()->toRoute('tomos.dashboard.page')}" class="nav-link" data-toggle="collapse" aria-controls="home">
+                  <div class="d-flex align-items-center">
+                    <span class="nav-link-icon">
+                      <span class="fas fa-home"></span>
+                    </span>
+                    <span>Dashboard</span>
+                  </div>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="#account" class="nav-link dropdown-indicator" data-toggle="collapse" role="button" aria-expanded="false" aria-controls="account">
+                  <div class="d-flex align-items-center">
+                    <span class="nav-link-icon">
+                      <span class="fas fa-address-card"></span>
+                    </span>
+                    <span>Account</span>
+                  </div>
+                </a>
+                <ul class="nav collapse{if $path|match:"*\/dashboard\/*"} show{/if}" id="account" data-parent="#navbarVerticalCollapse">
+                  <li class="nav-item{if $path|match:"*\/dashboard\/profile"} active{/if}">
+                    <a href="#" class="nav-link">Profile</a>
+                  </li>
+                  <li class="nav-item{if $path|match:"*\/dashboard\/settings"} active{/if}">
+                    <a href="#" class="nav-link">Settings</a>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+            <hr class="border-300 my-2">
+          </div>
+        </nav>
+        <div class="content">
+          <!-- Navbar Top -->
+          <nav class="navbar navbar-light navbar-glass fs--1 font-weight-semi-bold row navbar-top sticky-kit navbar-expand">
+            <!-- Hamburger Mobile -->
+            <button class="navbar-toggler collapsed outline-none" type="button" data-toggle="collapse" data-target="#navbarVerticalCollapse" aria-controls="navbarVerticalCollapse" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+            <!-- Logo Mobile -->
+            <a href="{url()->toRoute('tomos.dashboard.page')}" class="navbar-brand text-left ml-3">
+              <div class="d-flex align-items-center">
+                <img src="{$assets}/img/logos/logo-small.png" alt="Tomos" width="90">
+              </div>
+            </a>
+            <!-- Top Rightside -->
+            <div class="collapse navbar-collapse" id="navbarNavDropdown1">
+              <ul class="navbar-nav align-items-center d-none d-lg-block">
+                <!-- Search Form -->
+                <li class="nav-item">
+                  <form class="form-inline search-box">
+                    <input class="form-control rounded-pill search-input" type="search" placeholder="Search..." aria-label="Search">
+                    <span class="position-absolute fas fa-search text-400 search-box-icon"></span>
+                  </form>
+                </li>
+              </ul>
+              <!-- Top Right Navigation -->
+              <ul class="navbar-nav align-items-center ml-auto">
+                <li class="nav-item dropdown"><a class="nav-link pr-0" id="navbarDropdownUser" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <div class="avatar avatar-xl">
+                      <img src="{$assets}/img/users/default.png" class="rounded-circle" alt="">
+                    </div>
+                  </a>
+                  <div class="dropdown-menu dropdown-menu-right py-0" aria-labelledby="navbarDropdownUser">
+                    <div class="bg-white rounded-soft py-2">
+                      <a href="#profile" class="dropdown-item font-weight-bold text-warning">
+                        <span>{$user->username}</span>
+                      </a>
+                      <div class="dropdown-divider"></div>
+                      <a href="#profile" class="dropdown-item">Account</a>
+                      <a href="#settings" class="dropdown-item">Settings</a>
+                      <div class="dropdown-divider"></div>
+                      <a href="{url()->toRoute('tomos.logout.page')}" class="dropdown-item">Logout</a>
+                    </div>
+                  </div>
+                </li>
+              </ul>
+              <!-- END Top Right Navigation -->
+            </div>
+            <!-- END Top Rightside -->
+          </nav>
+          {block "content"}{/block}
+          <footer>
+            <div class="no-gutters fs--1 mt-4 mb-3">
+              <p class="mb-0 text-600 text-center">Tomos &copy; 2019</p>
+            </div>
+          </footer>
+        </div>
+      </div>
+    </main>
+    <script src="{$assets}/js/app.js"></script>
+  </body>
+</html>

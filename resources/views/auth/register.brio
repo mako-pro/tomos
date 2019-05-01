@@ -10,21 +10,21 @@
       </div>
       <form id="tomosRegistration" method="POST" action="{url()->toRoute('tomos.register.handler')}">
         <div class="form-group">
-          <input type="text" name="username" class="form-control" value="" placeholder="User name">
+          <input type="text" name="username" value="" class="form-control" placeholder="User name">
         </div>
         <div class="form-group">
-          <input type="email" name="email" class="form-control" value="" placeholder="Email address">
+          <input type="email" name="email" value="" class="form-control" placeholder="Email address">
         </div>
         <div class="form-row">
           <div class="form-group col-6">
-            <input type="password" name="password" class="form-control" value="" placeholder="Password">
+            <input type="password" name="password" value="" class="form-control" placeholder="Password">
           </div>
           <div class="form-group col-6">
-            <input type="password" name="password_confirmation" class="form-control" value="" placeholder="Confirm Password">
+            <input type="password" name="password_confirmation"  value="" class="form-control" placeholder="Confirm Password">
           </div>
         </div>
         <div class="custom-control custom-checkbox">
-          <input type="checkbox" name="accept_terms" id="customCheckTerms" value="yes" class="custom-control-input">
+          <input type="checkbox" name="accept_terms" value="yes" id="customCheckTerms" class="custom-control-input">
           <label for="customCheckTerms" class="custom-control-label">
             I accept the <a href="{url()->base()}">terms </a>and <a href="{url()->base()}">privacy policy</a>
           </label>

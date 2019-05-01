@@ -4,11 +4,10 @@ namespace placer\tomos\controllers;
 
 use mako\http\routing\Controller;
 
-class LogoutController extends Controller
+class DashboardController extends Controller
 {
     /**
-     * Logout the user
-     * Outputs the logout page
+     * Outputs the dashboard page
      *
      * @return mixed
      */
@@ -21,9 +20,9 @@ class LogoutController extends Controller
             );
         }
 
-        $this->gatekeeper->logout();
+        $user = $this->gatekeeper->getUser();
 
-        return $this->view->render('tomos::auth.logout');
+        $this->view->render('tomos::dashboard', compact('user'));
     }
 
 }

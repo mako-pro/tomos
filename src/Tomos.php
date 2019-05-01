@@ -4,6 +4,7 @@ namespace placer\tomos;
 
 use mako\syringe\Container;
 
+
 class Tomos
 {
     /**
@@ -30,26 +31,6 @@ class Tomos
     {
         $this->container = $container;
         $this->options   = $options;
-    }
-
-    public function validateRegister(array $data)
-    {
-        $validator = $this->container->get('validator');
-
-        $rules = [
-            'username'     => ['required', 'min_length(4)', 'max_length(16)', 'unique("users", "username")'],
-            'email'        => ['required', 'email', 'unique("users", "email")'],
-            'password'     => ['required', 'min_length(6)', 'max_length(32)', 'match("password_confirmation")'],
-            'accept_terms' => ['required'],
-        ];
-
-        $validatedInput = $validator->create($data, $rules);
-
-        if ($validatedInput->isValid())
-        {
-            return false;
-        }
-        return $validatedInput->getErrors();
     }
 
     /**

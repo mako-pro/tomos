@@ -8,19 +8,19 @@
           <h4>Login</h4>
         </div>
       </div>
-      <form>
+      <form id="tomosLogin" method="POST" action="{url()->toRoute('tomos.login.handler')}">
         <div class="form-group">
-          <input class="form-control" type="email" placeholder="Email address">
+          <input type="email" name="email" value="" class="form-control" placeholder="Email address">
         </div>
         <div class="form-group">
-          <input class="form-control" type="password" placeholder="Password">
+          <input type="password" name="password" value="" class="form-control" placeholder="Password">
         </div>
           <div class="custom-control custom-checkbox">
-            <input class="custom-control-input" id="customCheckRemember" type="checkbox">
+            <input type="checkbox" name="remember" value="1" id="customCheckRemember" class="custom-control-input">
             <label class="custom-control-label" for="customCheckRemember">Remember me</label>
           </div>
         <div class="form-group">
-          <button class="btn btn-primary btn-block py-2 mt-3" type="submit" name="submit">Login</button>
+          <button type="submit" class="btn btn-primary btn-block py-2 mt-3">Login</button>
         </div>
         <p class="row px-3 mb-0 justify-content-between fs--1 text-800">
           <a href="{url()->toRoute('tomos.register.page')}">Want to create an account?</a>

@@ -13,6 +13,12 @@ class VerificationController extends Controller
      */
     public function page()
     {
+        if (! $this->session->getFlash('email'))
+        {
+            $this->response->setStatus('403');
+
+            return 'Forbidden 403!';
+        }
         return $this->view->render('tomos::auth.verify');
     }
 
@@ -24,16 +30,20 @@ class VerificationController extends Controller
      */
     public function verify($id = null)
     {
-        if ($this->gatekeeper->activateUser($id))
+        $rules = $this->config->get('tomos::rules.verify');
+        $check = $this->validator->create(['token' => $id], $rules);
+
+        if (! $check->isValid() || ! $this->gatekeeper->activateUser($id))
         {
-            $this->session->putFlash(
-                'message', 'success|Your Email address is verified.|Now login, please.'
-            );
-            return $this->redirectResponse('tomos.login.page');
+            $this->response->setStatus('403');
+            return 'Forbidden 403!';
         }
 
-        $this->response->setStatus('403');
-        return 'Forbidden 403!';
+        $this->session->putFlash(
+            'message', $this->i18n->get('tomos::auth.verify.success')
+        );
+
+        return $this->redirectResponse('tomos.login.page');
     }
 
     /**

@@ -2,6 +2,8 @@
 
 $routes->group(['prefix' => $options['prefix'], 'namespace' => 'placer\tomos\controllers'], function ($routes) use($options)
 {
+    $routes->get('/dashboard', 'DashboardController::page', 'tomos.dashboard.page');
+
     if ($options['register'] ?? false)
     {
         $routes->get('/register', 'RegisterController::page', 'tomos.register.page');

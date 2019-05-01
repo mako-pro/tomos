@@ -8,12 +8,18 @@ use placer\tomos\Tomos;
 class RegisterController extends Controller
 {
     /**
-     * Output the registration form
+     * Outputs the registration form
      *
-     * @return string
+     * @return mixed
      */
     public function page()
     {
+        if ($this->gatekeeper->isLoggedIn())
+        {
+            return $this->redirectResponse(
+                $this->urlBuilder->toRoute('tomos.dashboard.page')
+            );
+        }
         return $this->view->render('tomos::auth.register');
     }
 
@@ -26,24 +32,35 @@ class RegisterController extends Controller
     public function handler(Tomos $tomos)
     {
         if (! $this->request->isAjax())
+        {
             return $this->redirectResponse('/');
+        }
 
-        $data = $this->request->getPost()->all();
+        if ($this->gatekeeper->isLoggedIn())
+        {
+            return $this->jsonResponse([
+                'url' => $this->urlBuilder->toRoute('tomos.dashboard.page')
+            ]);
+        }
 
-        if ($errors = $tomos->validateRegister($data))
+        $postData = $this->request->getPost()->all();
+        $rules    = $this->config->get('tomos::rules.register');
+        $check    = $this->validator->create($postData, $rules);
+
+        if (! $check->isValid())
         {
             $this->response->setStatus('400');
 
             return $this->jsonResponse([
                 'errors'   => true,
-                'messages' => $errors
+                'messages' => $check->getErrors()
             ]);
         }
 
         $user = $this->gatekeeper->createUser(
-            $data['email'],
-            $data['username'],
-            $data['password'],
+            $postData['email'],
+            $postData['username'],
+            $postData['password'],
             ! $tomos->verify
         );
 
@@ -60,14 +77,15 @@ class RegisterController extends Controller
         else
         {
             $this->session->putFlash(
-                'message', 'success|Successfully registered.|Now login, please.'
+                'message', $this->i18n->get('tomos::auth.register.success')
             );
+
             $route = 'tomos.login.page';
         }
 
-        return $this->jsonResponse(
-            $this->urlBuilder->toRoute($route)
-        );
+        return $this->jsonResponse([
+            'url' => $this->urlBuilder->toRoute($route)
+        ]);
     }
 
 }
