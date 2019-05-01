@@ -3,7 +3,6 @@
 namespace placer\tomos\controllers;
 
 use mako\http\routing\Controller;
-use placer\tomos\Tomos;
 
 class LoginController extends Controller
 {
@@ -26,10 +25,9 @@ class LoginController extends Controller
     /**
      * User authentication action
      *
-     * @param  Tomos  $tomos
      * @return Response
      */
-    public function handler(Tomos $tomos)
+    public function handler()
     {
         if (! $this->request->isAjax())
         {

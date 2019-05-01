@@ -3,7 +3,6 @@
 namespace placer\tomos\controllers;
 
 use mako\http\routing\Controller;
-use placer\tomos\Tomos;
 
 class RegisterController extends Controller
 {
@@ -26,10 +25,9 @@ class RegisterController extends Controller
     /**
      * Creates the new user
      *
-     * @param  Tomos  $tomos
      * @return Response
      */
-    public function handler(Tomos $tomos)
+    public function handler()
     {
         if (! $this->request->isAjax())
         {
@@ -61,16 +59,16 @@ class RegisterController extends Controller
             $postData['email'],
             $postData['username'],
             $postData['password'],
-            ! $tomos->verify
+            ! $this->tomos->verify
         );
 
         $groupRepository = $this->gatekeeper->getGroupRepository();
-        $usersGroup = $groupRepository->getByName($tomos->default_group);
+        $usersGroup = $groupRepository->getByName($this->tomos->default_group);
         $usersGroup->addUser($user);
 
-        if ($tomos->verify === true)
+        if ($this->tomos->verify === true)
         {
-            $tomos->sendActivationEmail($user->id);
+            $this->tomos->sendActivationEmail($user->id);
             $this->session->putFlash('email', $user->email);
             $route = 'tomos.verification.page';
         }
