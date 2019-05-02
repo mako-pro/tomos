@@ -48,11 +48,11 @@
                     <span>Account</span>
                   </div>
                 </a>
-                <ul class="nav collapse{if $path|match:"*\/dashboard\/*"} show{/if}" id="account" data-parent="#navbarVerticalCollapse">
-                  <li class="nav-item{if $path|match:"*\/dashboard\/profile"} active{/if}">
+                <ul class="nav collapse{if $path|match:"*\/account\/*"} show{/if}" id="account" data-parent="#navbarVerticalCollapse">
+                  <li class="nav-item{if $path|match:"*\/account\/profile"} active{/if}">
                     <a href="#" class="nav-link">Profile</a>
                   </li>
-                  <li class="nav-item{if $path|match:"*\/dashboard\/settings"} active{/if}">
+                  <li class="nav-item{if $path|match:"*\/account\/settings"} active{/if}">
                     <a href="#" class="nav-link">Settings</a>
                   </li>
                 </ul>

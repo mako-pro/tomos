@@ -24,7 +24,7 @@
         </div>
         <p class="row px-3 mb-0 justify-content-between fs--1 text-800">
           <a href="{url()->toRoute('tomos.register.page')}">Want to create an account?</a>
-          <a href="{url()->toRoute('tomos.forgot.page')}">Forget password?</a>
+          <a href="{url()->toRoute('tomos.forgot.page')}">Forgot password?</a>
         </p>
       </form>
     </div>

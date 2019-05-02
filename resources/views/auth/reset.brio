@@ -1,0 +1,30 @@
+{extends 'tomos::layouts.auth'}
+{block 'title'}{parent} - Password Reset{/block}
+{block 'card'}
+  <div class="card">
+    <div class="card-body p-5">
+      <div class="row text-left">
+        <div class="col-auto mb-3">
+          <h4>Reset Password</h4>
+        </div>
+      </div>
+      <form method="POST" action="{url()->toRoute('tomos.reset.handler')}" id="tomosReset">
+        <input type="hidden" name="token" value="{$token}" class="form-control" placeholder="Email address">
+        <div class="form-group">
+          <input type="email" name="email" value="" class="form-control" placeholder="Email address">
+        </div>
+        <div class="form-row">
+          <div class="form-group col-6">
+            <input type="password" name="password" value="" class="form-control" placeholder="New Password">
+          </div>
+          <div class="form-group col-6">
+            <input type="password" name="password_confirmation" value="" class="form-control" placeholder="Confirm Password">
+          </div>
+        </div>
+        <div class="form-group">
+          <button type="submit" class="btn btn-primary btn-block py-2 mt-3">Reset password</button>
+        </div>
+      </form>
+    </div>
+  </div>
+{/block}

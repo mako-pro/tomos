@@ -14,15 +14,16 @@ $routes->group(['prefix' => $options['prefix'], 'namespace' => 'placer\tomos\con
     {
         $routes->get('/password/reset', 'ForgotPasswordController::page', 'tomos.forgot.page');
         $routes->post('/password/email', 'ForgotPasswordController::handler', 'tomos.forgot.handler');
+        $routes->get('/password/confirm', 'ForgotPasswordController::confirm', 'tomos.forgot.confirm');
 
-        $routes->get('/password/reset/{token}', 'ResetPasswordController::link', 'tomos.reset.link');
+        $routes->get('/password/reset/{token}', 'ResetPasswordController::page', 'tomos.reset.page');
         $routes->post('/password/resets', 'ResetPasswordController::handler', 'tomos.reset.handler');
     }
 
     if ($options['verify'] ?? false)
     {
         $routes->get('/email/verify', 'VerificationController::page', 'tomos.verification.page');
-        $routes->get('/email/verify/{id}', 'VerificationController::verify', 'tomos.verification.verify');
+        $routes->get('/email/verify/{token}', 'VerificationController::verify', 'tomos.verification.verify');
         $routes->get('/email/resend', 'VerificationController::resend', 'tomos.verification.resend');
     }
 

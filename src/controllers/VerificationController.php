@@ -19,21 +19,22 @@ class VerificationController extends Controller
 
             return 'Forbidden 403!';
         }
+
         return $this->view->render('tomos::auth.verify');
     }
 
     /**
      * Activate new user by verify token
      *
-     * @param  string $id Action token
+     * @param  string $token Action token
      * @return Response
      */
-    public function verify($id = null)
+    public function verify($token)
     {
-        $rules = $this->config->get('tomos::rules.verify');
-        $check = $this->validator->create(['token' => $id], $rules);
+        $rules = $this->config->get('tomos::rules.action');
+        $check = $this->validator->create(['token' => $token], $rules);
 
-        if (! $check->isValid() || ! $this->gatekeeper->activateUser($id))
+        if (! $check->isValid() || ! $this->gatekeeper->activateUser($token))
         {
             $this->response->setStatus('403');
             return 'Forbidden 403!';

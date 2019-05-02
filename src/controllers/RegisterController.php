@@ -19,6 +19,7 @@ class RegisterController extends Controller
                 $this->urlBuilder->toRoute('tomos.dashboard.page')
             );
         }
+
         return $this->view->render('tomos::auth.register');
     }
 
@@ -68,7 +69,7 @@ class RegisterController extends Controller
 
         if ($this->tomos->verify === true)
         {
-            $this->tomos->sendActivationEmail($user->id);
+            $this->tomos->sendUserEmail($user->id, 'verify');
             $this->session->putFlash('email', $user->email);
             $route = 'tomos.verification.page';
         }

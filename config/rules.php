@@ -14,8 +14,17 @@ return [
         'password'     => ['required', 'min_length(6)', 'max_length(32)'],
     ],
 
-    'verify' => [
+    'action' => [
         'token'        => ['required', 'exact_length(64)', 'hex'],
+    ],
+
+    'forgot' => [
+        'email'        => ['required', 'email', 'exists("users", "email")'],
+    ],
+
+    'reset' => [
+        'email'        => ['required', 'email'],
+        'password'     => ['required', 'min_length(6)', 'max_length(32)', 'match("password_confirmation")'],
     ],
 
 ];
