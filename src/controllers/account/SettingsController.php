@@ -1,14 +1,14 @@
 <?php
 
-namespace placer\tomos\controllers;
+namespace placer\tomos\controllers\account;
 
 use mako\http\routing\Controller;
 use placer\tomos\models\User;
 
-class DashboardController extends Controller
+class SettingsController extends Controller
 {
     /**
-     * Outputs the dashboard page
+     * Outputs the account settings page
      *
      * @return mixed
      */
@@ -25,7 +25,17 @@ class DashboardController extends Controller
 
         $user = User::get($user->id);
 
-        $this->view->render('tomos::dashboard', compact('user'));
+        $this->view->render('tomos::account.settings', compact('user'));
+    }
+
+    /**
+     * Manage the account settings
+     *
+     * @return mixed
+     */
+    public function handler()
+    {
+
     }
 
 }

@@ -1,6 +1,6 @@
 <?php
 
-namespace placer\tomos\controllers;
+namespace placer\tomos\controllers\auth;
 
 use mako\http\routing\Controller;
 

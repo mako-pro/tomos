@@ -1,0 +1,12 @@
+{extends 'tomos::layouts.master'}
+{block 'title'}{parent} - Settings{/block}
+{block 'content'}
+  <div class="card">
+    <div class="card-header bg-light d-flex justify-content-between">
+      <h5 class="mb-0">Manage Account Settings</h5>
+    </div>
+    <div class="card-body fs-1">
+      Settings content...
+    </div>
+  </div>
+{/block}

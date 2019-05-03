@@ -5,8 +5,8 @@
     <div class="card-header bg-light d-flex justify-content-between">
       <h5 class="mb-0">
         Hello
-        {if $profile->first_name}
-          {$profile->first_name}!
+        {if $user->profile->first_name}
+          {$user->profile->first_name}!
         {else}
           {$user->username}!
         {/if}

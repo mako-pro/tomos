@@ -30,7 +30,7 @@
           <div class="collapse navbar-collapse" id="navbarVerticalCollapse">
             <ul class="navbar-nav flex-column">
               <li class="nav-item{if $path|match:"*\/dashboard"} active{/if}">
-                <a href="{url()->toRoute('tomos.dashboard.page')}" class="nav-link" data-toggle="collapse" aria-controls="home">
+                <a href="{url()->toRoute('tomos.dashboard.page')}" class="nav-link" aria-controls="home">
                   <div class="d-flex align-items-center">
                     <span class="nav-link-icon">
                       <span class="fas fa-home"></span>
@@ -50,10 +50,10 @@
                 </a>
                 <ul class="nav collapse{if $path|match:"*\/account\/*"} show{/if}" id="account" data-parent="#navbarVerticalCollapse">
                   <li class="nav-item{if $path|match:"*\/account\/profile"} active{/if}">
-                    <a href="#" class="nav-link">Profile</a>
+                    <a href="{url()->toRoute('tomos.profile.page')}" class="nav-link">Profile</a>
                   </li>
                   <li class="nav-item{if $path|match:"*\/account\/settings"} active{/if}">
-                    <a href="#" class="nav-link">Settings</a>
+                    <a href="{url()->toRoute('tomos.settings.page')}" class="nav-link">Settings</a>
                   </li>
                 </ul>
               </li>
@@ -98,8 +98,8 @@
                         <span>{$user->username}</span>
                       </a>
                       <div class="dropdown-divider"></div>
-                      <a href="#profile" class="dropdown-item">Account</a>
-                      <a href="#settings" class="dropdown-item">Settings</a>
+                      <a href="{url()->toRoute('tomos.profile.page')}" class="dropdown-item">Profile</a>
+                      <a href="{url()->toRoute('tomos.settings.page')}" class="dropdown-item">Settings</a>
                       <div class="dropdown-divider"></div>
                       <a href="{url()->toRoute('tomos.logout.page')}" class="dropdown-item">Logout</a>
                     </div>
