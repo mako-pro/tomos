@@ -6,22 +6,22 @@ $routes->group(['prefix' => $options['prefix'], 'namespace' => 'placer\tomos\con
 
     $routes->get('/account/profile', 'account\ProfileController::page', 'tomos.profile.page');
     $routes->get('/account/settings', 'account\SettingsController::page', 'tomos.settings.page');
-    $routes->post('/account/settings', 'account\SettingsController::handler', 'tomos.settings.handler');
+    $routes->post('/account/settings', 'account\SettingsController::handler', 'tomos.settings.handler')->middleware('ajax');
 
     if ($options['register'] ?? false)
     {
         $routes->get('/register', 'auth\RegisterController::page', 'tomos.register.page');
-        $routes->post('/register', 'auth\RegisterController::handler', 'tomos.register.handler');
+        $routes->post('/register', 'auth\RegisterController::handler', 'tomos.register.handler')->middleware('ajax');
     }
 
     if ($options['reset'] ?? false)
     {
         $routes->get('/password/reset', 'auth\ForgotPasswordController::page', 'tomos.forgot.page');
-        $routes->post('/password/email', 'auth\ForgotPasswordController::handler', 'tomos.forgot.handler');
+        $routes->post('/password/email', 'auth\ForgotPasswordController::handler', 'tomos.forgot.handler')->middleware('ajax');
         $routes->get('/password/confirm', 'auth\ForgotPasswordController::confirm', 'tomos.forgot.confirm');
 
         $routes->get('/password/reset/{token}', 'auth\ResetPasswordController::page', 'tomos.reset.page');
-        $routes->post('/password/resets', 'auth\ResetPasswordController::handler', 'tomos.reset.handler');
+        $routes->post('/password/resets', 'auth\ResetPasswordController::handler', 'tomos.reset.handler')->middleware('ajax');
     }
 
     if ($options['verify'] ?? false)
@@ -32,7 +32,7 @@ $routes->group(['prefix' => $options['prefix'], 'namespace' => 'placer\tomos\con
     }
 
     $routes->get('/login', 'auth\LoginController::page', 'tomos.login.page');
-    $routes->post('/login', 'auth\LoginController::handler', 'tomos.login.handler');
+    $routes->post('/login', 'auth\LoginController::handler', 'tomos.login.handler')->middleware('ajax');
     $routes->get('/logout', 'auth\LogoutController::page', 'tomos.logout.page');
 
 });

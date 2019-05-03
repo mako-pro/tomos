@@ -17,7 +17,9 @@ class VerificationController extends Controller
         {
             $this->response->setStatus('403');
 
-            return 'Forbidden 403!';
+            $this->response->setBody('Forbidden 403!');
+
+            return $this->response->send();
         }
 
         return $this->view->render('tomos::auth.verify');
@@ -32,12 +34,16 @@ class VerificationController extends Controller
     public function verify($token)
     {
         $rules = $this->config->get('tomos::rules.action');
+
         $check = $this->validator->create(['token' => $token], $rules);
 
         if (! $check->isValid() || ! $this->gatekeeper->activateUser($token))
         {
-            $this->response->setStatus('403');
-            return 'Forbidden 403!';
+            $this->response->setStatus('400');
+
+            $this->response->setBody('Bad Request 400!');
+
+            return $this->response->send();
         }
 
         $this->session->putFlash(

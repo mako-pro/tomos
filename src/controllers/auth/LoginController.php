@@ -7,18 +7,34 @@ use mako\http\routing\Controller;
 class LoginController extends Controller
 {
     /**
+     * Before action
+     *
+     * @return mixed
+     */
+    public function beforeAction()
+    {
+        if ($this->gatekeeper->isLoggedIn())
+        {
+            $route = 'tomos.dashboard.page';
+
+            $url = $this->urlBuilder->toRoute($route);
+
+            if (! $this->request->isAjax())
+            {
+                return $this->redirectResponse($url);
+            }
+
+            return $this->jsonResponse(['url' => $url]);
+        }
+    }
+
+    /**
      * Outputs the login form
      *
      * @return mixed
      */
     public function page()
     {
-        if ($this->gatekeeper->isLoggedIn())
-        {
-            return $this->redirectResponse(
-                $this->urlBuilder->toRoute('tomos.dashboard.page')
-            );
-        }
         return $this->view->render('tomos::auth.login');
     }
 
@@ -29,18 +45,6 @@ class LoginController extends Controller
      */
     public function handler()
     {
-        if (! $this->request->isAjax())
-        {
-            return $this->redirectResponse('/');
-        }
-
-        if ($this->gatekeeper->isLoggedIn())
-        {
-            return $this->jsonResponse([
-                'url' => $this->urlBuilder->toRoute('tomos.dashboard.page')
-            ]);
-        }
-
         $postData = $this->request->getPost()->all();
         $rules    = $this->config->get('tomos::rules.login');
         $check    = $this->validator->create($postData, $rules);

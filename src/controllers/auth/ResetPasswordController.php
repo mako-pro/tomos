@@ -7,6 +7,28 @@ use mako\http\routing\Controller;
 class ResetPasswordController extends Controller
 {
     /**
+     * Before action
+     *
+     * @return mixed
+     */
+    public function beforeAction()
+    {
+        if ($this->gatekeeper->isLoggedIn())
+        {
+            $route = 'tomos.dashboard.page';
+
+            $url = $this->urlBuilder->toRoute($route);
+
+            if (! $this->request->isAjax())
+            {
+                return $this->redirectResponse($url);
+            }
+
+            return $this->jsonResponse(['url' => $url]);
+        }
+    }
+
+    /**
      * Loads the reset password form by token
      *
      * @param  string $token Action token
@@ -14,19 +36,17 @@ class ResetPasswordController extends Controller
      */
     public function page($token)
     {
-        if ($this->gatekeeper->isLoggedIn())
-        {
-            return $this->redirectResponse('tomos.dashboard.page');
-        }
-
         $rules = $this->config->get('tomos::rules.action');
+
         $check = $this->validator->create(['token' => $token], $rules);
 
         if (! $check->isValid())
         {
             $this->response->setStatus('403');
 
-            return 'Forbidden 403!';
+            $this->response->setBody('Forbidden 403!');
+
+            return $this->response->send();
         }
 
         return $this->view->render('tomos::auth.reset', ['token' => $token]);
@@ -39,18 +59,6 @@ class ResetPasswordController extends Controller
      */
     public function handler()
     {
-        if (! $this->request->isAjax())
-        {
-            return $this->redirectResponse('/');
-        }
-
-        if ($this->gatekeeper->isLoggedIn())
-        {
-            return $this->jsonResponse([
-                'url' => $this->urlBuilder->toRoute('tomos.dashboard.page')
-            ]);
-        }
-
         $postData   = $this->request->getPost()->all();
         $rules      = $this->config->get('tomos::rules.action');
         $checkToken = $this->validator->create($postData, $rules);

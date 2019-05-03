@@ -9,19 +9,34 @@ use placer\tomos\models\User;
 class RegisterController extends Controller
 {
     /**
+     * Before action
+     *
+     * @return mixed
+     */
+    public function beforeAction()
+    {
+        if ($this->gatekeeper->isLoggedIn())
+        {
+            $route = 'tomos.dashboard.page';
+
+            $url = $this->urlBuilder->toRoute($route);
+
+            if (! $this->request->isAjax())
+            {
+                return $this->redirectResponse($url);
+            }
+
+            return $this->jsonResponse(['url' => $url]);
+        }
+    }
+
+    /**
      * Outputs the registration form
      *
      * @return mixed
      */
     public function page()
     {
-        if ($this->gatekeeper->isLoggedIn())
-        {
-            return $this->redirectResponse(
-                $this->urlBuilder->toRoute('tomos.dashboard.page')
-            );
-        }
-
         return $this->view->render('tomos::auth.register');
     }
 
@@ -32,18 +47,6 @@ class RegisterController extends Controller
      */
     public function handler()
     {
-        if (! $this->request->isAjax())
-        {
-            return $this->redirectResponse('/');
-        }
-
-        if ($this->gatekeeper->isLoggedIn())
-        {
-            return $this->jsonResponse([
-                'url' => $this->urlBuilder->toRoute('tomos.dashboard.page')
-            ]);
-        }
-
         $postData = $this->request->getPost()->all();
         $rules    = $this->config->get('tomos::rules.register');
         $check    = $this->validator->create($postData, $rules);

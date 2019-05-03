@@ -14,9 +14,7 @@ class ProfileController extends Controller
      */
     public function page()
     {
-        $user = $this->gatekeeper->getUser();
-
-        if ($user === false)
+        if (! $user = $this->gatekeeper->getUser())
         {
             return $this->redirectResponse(
                 $this->urlBuilder->toRoute('tomos.login.page')
