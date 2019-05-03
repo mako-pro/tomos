@@ -3,7 +3,14 @@
 {block 'content'}
   <div class="card">
     <div class="card-header bg-light d-flex justify-content-between">
-      <h5 class="mb-0">Hello {$user->username}!</h5>
+      <h5 class="mb-0">
+        Hello
+        {if $profile->first_name}
+          {$profile->first_name}!
+        {else}
+          {$user->username}!
+        {/if}
+      </h5>
     </div>
     <div class="card-body fs-1">
       You are successfully logged in!

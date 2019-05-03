@@ -3,6 +3,7 @@
 namespace placer\tomos\controllers;
 
 use mako\http\routing\Controller;
+use placer\tomos\models\Profile;
 
 class DashboardController extends Controller
 {
@@ -22,7 +23,9 @@ class DashboardController extends Controller
 
         $user = $this->gatekeeper->getUser();
 
-        $this->view->render('tomos::dashboard', compact('user'));
+        $profile = Profile::get($user->id);
+
+        $this->view->render('tomos::dashboard', compact('user', 'profile'));
     }
 
 }

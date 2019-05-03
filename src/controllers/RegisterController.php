@@ -3,6 +3,8 @@
 namespace placer\tomos\controllers;
 
 use mako\http\routing\Controller;
+use placer\tomos\models\Profile;
+use placer\tomos\models\User;
 
 class RegisterController extends Controller
 {
@@ -66,6 +68,9 @@ class RegisterController extends Controller
         $groupRepository = $this->gatekeeper->getGroupRepository();
         $usersGroup = $groupRepository->getByName($this->tomos->default_group);
         $usersGroup->addUser($user);
+
+        $tomosUser = User::get($user->id);
+        $tomosUser->profile()->create(new Profile);
 
         if ($this->tomos->verify === true)
         {

@@ -1,6 +1,6 @@
 <?php
 
-namespace tomos\models;
+namespace placer\tomos\models;
 
 use mako\gatekeeper\entities\user\User as MakoUser;
 
