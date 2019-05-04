@@ -4,6 +4,12 @@ namespace placer\tomos\models;
 
 use mako\gatekeeper\entities\user\User as MakoUser;
 
+/**
+ * In file   app/config/gatekeeper.php
+ * Replace  'user_model'  => 'mako\gatekeeper\entities\user\User'
+ * To       'user_model'  => 'placer\tomos\models\User'
+ */
+
 class User extends MakoUser
 {
     /**
