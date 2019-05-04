@@ -94,7 +94,7 @@
                   </a>
                   <div class="dropdown-menu dropdown-menu-right py-0" aria-labelledby="navbarDropdownUser">
                     <div class="bg-white rounded-soft py-2">
-                      <a href="#profile" class="dropdown-item font-weight-bold text-warning">
+                      <a href="{url()->toRoute('tomos.profile.page')}" class="dropdown-item font-weight-bold text-warning">
                         <span>{$user->username}</span>
                       </a>
                       <div class="dropdown-divider"></div>
