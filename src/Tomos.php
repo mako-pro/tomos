@@ -2,7 +2,9 @@
 
 namespace placer\tomos;
 
+use mako\chrono\Time;
 use mako\syringe\Container;
+use placer\tomos\models\Profile;
 
 class Tomos
 {
@@ -76,6 +78,25 @@ class Tomos
             ->with('name', $user->username)
             ->to($user->email, $user->username)
             ->send(true);
+    }
+
+    /**
+     * Updates the last login timestamp
+     * Updates the last ip address value
+     *
+     * @return void
+     */
+    public function touchLogin()
+    {
+        $gatekeeper = $this->container->get('gatekeeper');
+        $request = $this->container ->get('request');
+
+        if ($user = $gatekeeper->getUser())
+        {
+            $user->profile->last_login = Time::now();
+            $user->profile->last_ip = $request->getIp();
+            $user->profile->save();
+        }
     }
 
     /**

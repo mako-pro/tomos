@@ -64,6 +64,8 @@ class LoginController extends Controller
 
         if ($authResult === true)
         {
+            $this->tomos->touchLogin();
+
             return $this->jsonResponse([
                 'url' => $this->urlBuilder->toRoute('tomos.dashboard.page')
             ]);
