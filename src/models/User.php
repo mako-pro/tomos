@@ -23,6 +23,36 @@ class User extends MakoUser
     }
 
     /**
+     * User location
+     *
+     * @return \mako\database\midgard\relations\HasOne
+     */
+    public function location()
+    {
+        return $this->hasOne(Location::class);
+    }
+
+    /**
+     * User account settings
+     *
+     * @return \mako\database\midgard\relations\HasOne
+     */
+    public function setting()
+    {
+        return $this->hasOne(Setting::class);
+    }
+
+    /**
+     * User activity
+     *
+     * @return \mako\database\midgard\relations\HasMany
+     */
+    public function activity()
+    {
+        return $this->hasMany(Activity::class);
+    }
+
+    /**
      * Search scope
      *
      * @param  \mako\database\query\Query $query

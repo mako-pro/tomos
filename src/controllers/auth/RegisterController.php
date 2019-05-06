@@ -3,7 +3,9 @@
 namespace placer\tomos\controllers\auth;
 
 use mako\http\routing\Controller;
+use placer\tomos\models\Location;
 use placer\tomos\models\Profile;
+use placer\tomos\models\Setting;
 use placer\tomos\models\User;
 
 class RegisterController extends Controller
@@ -74,6 +76,8 @@ class RegisterController extends Controller
 
         $tomosUser = User::get($user->id);
         $tomosUser->profile()->create(new Profile);
+        $tomosUser->setting()->create(new Setting);
+        $tomosUser->location()->create(new Location);
 
         if ($this->tomos->verify === true)
         {

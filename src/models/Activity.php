@@ -4,7 +4,7 @@ namespace placer\tomos\models;
 
 use mako\database\midgard\ORM;
 
-class Profile extends ORM
+class Activity extends ORM
 {
     protected $tableName = 'tomos_activity';
 
