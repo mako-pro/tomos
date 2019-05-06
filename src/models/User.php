@@ -33,7 +33,7 @@ class User extends MakoUser
     }
 
     /**
-     * User account settings
+     * User account setting
      *
      * @return \mako\database\midgard\relations\HasOne
      */
@@ -50,6 +50,26 @@ class User extends MakoUser
     public function activity()
     {
         return $this->hasMany(Activity::class);
+    }
+
+    /**
+     * User experience
+     *
+     * @return \mako\database\midgard\relations\HasMany
+     */
+    public function experience()
+    {
+        return $this->hasMany(Experience::class);
+    }
+
+    /**
+     * User education
+     *
+     * @return \mako\database\midgard\relations\HasMany
+     */
+    public function education()
+    {
+        return $this->hasMany(Education::class);
     }
 
     /**

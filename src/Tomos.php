@@ -3,6 +3,7 @@
 namespace placer\tomos;
 
 use mako\chrono\Time;
+use mako\utility\Str;
 use mako\syringe\Container;
 
 class Tomos
@@ -119,6 +120,8 @@ class Tomos
      */
     public function __get(string $key)
     {
+        $key = Str::camel2underscored($key);
+
         return $this->options[$key] ?? null;
     }
 

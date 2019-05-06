@@ -70,8 +70,9 @@ class RegisterController extends Controller
             ! $this->tomos->verify
         );
 
+        $defaultGroup = $this->tomos->defaultGroup ?? 'default';
         $groupRepository = $this->gatekeeper->getGroupRepository();
-        $usersGroup = $groupRepository->getByName($this->tomos->default_group);
+        $usersGroup = $groupRepository->getByName($defaultGroup);
         $usersGroup->addUser($user);
 
         $tomosUser = User::get($user->id);
