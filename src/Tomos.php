@@ -93,21 +93,20 @@ class Tomos
             return;
         }
 
-        $request    = $this->container ->get('request');
+        $request    = $this->container->get('request');
         $connection = $this->container->get('database');
-        $i18n       = $this->container->get('i18n');
 
-        $headers    = $request->getHeaders();
-        $uaserAgent = $headers->has('User-Agent')
+        $headers   = $request->getHeaders();
+        $userAgent = $headers->has('User-Agent')
             ? substr((string) $headers->get('User-Agent'), 0, 500)
             : '';
 
         $connection->table('tomos_activity')
             ->insert([
                 'user_id'     => $user->id,
-                'description' => $i18n->get("tomos::activity.{$action}"),
+                'action'      => $action,
                 'ip_address'  => $request->getIp(),
-                'user_agent'  => $uaserAgent,
+                'user_agent'  => $userAgent,
                 'created_at'  => Time::now()
             ]);
     }

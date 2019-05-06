@@ -1,7 +1,9 @@
 <?php
 
-return
-[
-    'login'  => 'Logged in',
-    'logout' => 'Logged out',
+return [
+    'auth' => [
+        'login'  => 'Logged in',
+        'logout' => 'Logged out',
+    ],
+
 ];

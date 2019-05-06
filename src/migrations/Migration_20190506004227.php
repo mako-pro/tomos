@@ -23,7 +23,7 @@ class Migration_20190506004227 extends Migration
 			"CREATE TABLE `tomos_activity` (
 				`id` int(11) unsigned NOT NULL AUTO_INCREMENT,
 				`user_id` int(11) unsigned NOT NULL,
-				`description` varchar(255) NOT NULL DEFAULT '',
+				`action` varchar(255) NOT NULL DEFAULT '',
 				`ip_address` varchar(64) NOT NULL DEFAULT '',
 				`user_agent` text,
 				`created_at` datetime NOT NULL,

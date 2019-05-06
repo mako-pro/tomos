@@ -21,6 +21,8 @@ class LogoutController extends Controller
             );
         }
 
+        $this->tomos->touchActivity('auth.logout');
+
         $this->gatekeeper->logout();
 
         return $this->view->render('tomos::auth.logout');
