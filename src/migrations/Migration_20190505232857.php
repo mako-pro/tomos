@@ -1,0 +1,55 @@
+<?php
+
+namespace placer\tomos\migrations;
+
+use mako\database\migrations\Migration;
+
+class Migration_20190505232857 extends Migration
+{
+	/**
+	 * Description.
+	 *
+	 * @var string
+	 */
+	protected $description = 'Create tomos_profiles table';
+
+	/**
+	 * Makes changes to the database structure.
+	 */
+	public function up(): void
+	{
+		$this->getConnection()->query
+		(
+			"CREATE TABLE `tomos_profiles` (
+				`id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+				`user_id` int(11) unsigned NOT NULL,
+				`first_name` varchar(64) DEFAULT '',
+				`last_name` varchar(64) DEFAULT '',
+				`email` varchar(64) DEFAULT '' COMMENT 'Second email address',
+				`phone` varchar(16) DEFAULT '',
+				`heading` varchar(128) DEFAULT '',
+				`intro` text,
+				`created_at` datetime NOT NULL,
+				`updated_at` datetime NOT NULL,
+				PRIMARY KEY (`id`),
+				UNIQUE KEY `user_id` (`user_id`) USING BTREE,
+				CONSTRAINT `tomos_profiles_ibfk_1`
+					FOREIGN KEY (`user_id`)
+					REFERENCES `users` (`id`)
+					ON DELETE CASCADE
+					ON UPDATE NO ACTION
+			) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;"
+		);
+	}
+
+	/**
+	 * Reverts the database changes.
+	 */
+	public function down(): void
+	{
+		$this->getConnection()->query
+		(
+			"DROP TABLE IF EXISTS `tomos_profiles`;"
+		);
+	}
+}

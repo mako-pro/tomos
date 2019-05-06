@@ -20,7 +20,7 @@ class Migration_20190503131311 extends Migration
 	{
 		$this->getConnection()->query
 		(
-			"CREATE TABLE `countries` (
+			"CREATE TABLE `tomos_countries` (
 				`id` char(2) NOT NULL,
 				`name` varchar(255) NOT NULL,
 				`official_name` varchar(255) NOT NULL DEFAULT '',

@@ -3,10 +3,13 @@
 namespace placer\tomos\models;
 
 use mako\database\midgard\ORM;
+use mako\database\midgard\traits\TimestampedTrait;
 
 class Profile extends ORM
 {
-    protected $tableName = 'profiles';
+    use TimestampedTrait;
+
+    protected $tableName = 'tomos_profiles';
 
     /**
      * User

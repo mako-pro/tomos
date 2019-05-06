@@ -4,7 +4,6 @@ namespace placer\tomos;
 
 use mako\chrono\Time;
 use mako\syringe\Container;
-use placer\tomos\models\Profile;
 
 class Tomos
 {
@@ -81,22 +80,36 @@ class Tomos
     }
 
     /**
-     * Updates the last login timestamp
-     * Updates the last ip address value
+     * User activity logging
      *
      * @return void
      */
-    public function touchLogin()
+    public function touchActivity(string $action)
     {
         $gatekeeper = $this->container->get('gatekeeper');
-        $request = $this->container ->get('request');
 
-        if ($user = $gatekeeper->getUser())
+        if (! $user = $gatekeeper->getUser())
         {
-            $user->profile->last_login = Time::now();
-            $user->profile->last_ip = $request->getIp();
-            $user->profile->save();
+            return;
         }
+
+        $request    = $this->container ->get('request');
+        $connection = $this->container->get('database');
+        $i18n       = $this->container->get('i18n');
+
+        $headers    = $request->getHeaders();
+        $uaserAgent = $headers->has('User-Agent')
+            ? substr((string) $headers->get('User-Agent'), 0, 500)
+            : '';
+
+        $connection->table('tomos_activity')
+            ->insert([
+                'user_id'     => $user->id,
+                'description' => $i18n->get("tomos::activity.{$action}"),
+                'ip_address'  => $request->getIp(),
+                'user_agent'  => $uaserAgent,
+                'created_at'  => Time::now()
+            ]);
     }
 
     /**
