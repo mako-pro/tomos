@@ -37,7 +37,9 @@ class Migration_20190401102741 extends Migration
 				`locked_until` datetime DEFAULT NULL,
 				PRIMARY KEY (`id`),
 				UNIQUE KEY `username` (`username`),
-				UNIQUE KEY `email` (`email`)
+				UNIQUE KEY `email` (`email`),
+				UNIQUE KEY `action_token` (`action_token`),
+				UNIQUE KEY `access_token` (`access_token`)
 			) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;"
 		);
 	}

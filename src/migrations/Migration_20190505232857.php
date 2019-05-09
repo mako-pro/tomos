@@ -21,21 +21,21 @@ class Migration_20190505232857 extends Migration
 		$this->getConnection()->query
 		(
 			"CREATE TABLE `tomos_profiles` (
-				`id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+				`id` char(36) NOT NULL,
 				`user_id` int(11) unsigned NOT NULL,
 				`first_name` varchar(64) DEFAULT '',
 				`last_name` varchar(64) DEFAULT '',
 				`birthday` date DEFAULT NULL,
-				`email` varchar(64) DEFAULT '' COMMENT 'Second email address',
+				`email` varchar(64) DEFAULT '' COMMENT 'Secondary email address',
 				`phone` varchar(16) DEFAULT '',
 				`heading` varchar(128) DEFAULT '',
 				`intro` text,
 				`avatar` varchar(64) DEFAULT '',
-				`image` varchar(64) DEFAULT '',
+				`cover` varchar(64) DEFAULT '',
 				`created_at` datetime NOT NULL,
 				`updated_at` datetime NOT NULL,
 				PRIMARY KEY (`id`),
-				UNIQUE KEY `user_id` (`user_id`) USING BTREE,
+				UNIQUE KEY `user_id` (`user_id`),
 				CONSTRAINT `tomos_profiles_ibfk_1`
 					FOREIGN KEY (`user_id`)
 					REFERENCES `users` (`id`)

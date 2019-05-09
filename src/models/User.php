@@ -57,7 +57,7 @@ class User extends MakoUser
      *
      * @return \mako\database\midgard\relations\HasMany
      */
-    public function experience()
+    public function experiences()
     {
         return $this->hasMany(Experience::class);
     }
@@ -67,7 +67,7 @@ class User extends MakoUser
      *
      * @return \mako\database\midgard\relations\HasMany
      */
-    public function education()
+    public function educations()
     {
         return $this->hasMany(Education::class);
     }
