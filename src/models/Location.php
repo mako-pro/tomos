@@ -12,6 +12,17 @@ class Location extends ORM
     protected $tableName = 'tomos_locations';
 
     /**
+     * Returns location instance by user id
+     *
+     * @param  int    $id User id
+     * @return self
+     */
+    public static function getByUserId(int $id)
+    {
+        return self::where('user_id', '=', $id)->first();
+    }
+
+    /**
      * User
      *
      * @return \mako\database\midgard\relations\BelongsTo

@@ -12,6 +12,8 @@ use mako\gatekeeper\entities\user\User as MakoUser;
 
 class User extends MakoUser
 {
+    protected $protected = ['password', 'access_token', 'action_token'];
+
     /**
      * User profile
      *

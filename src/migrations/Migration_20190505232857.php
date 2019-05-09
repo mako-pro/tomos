@@ -26,7 +26,7 @@ class Migration_20190505232857 extends Migration
 				`first_name` varchar(64) DEFAULT '',
 				`last_name` varchar(64) DEFAULT '',
 				`birthday` date DEFAULT NULL,
-				`email` varchar(64) DEFAULT '' COMMENT 'Secondary email address',
+				`email` varchar(64) DEFAULT '' COMMENT 'Secondary Email',
 				`phone` varchar(16) DEFAULT '',
 				`heading` varchar(128) DEFAULT '',
 				`intro` text,

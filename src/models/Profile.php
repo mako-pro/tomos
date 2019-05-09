@@ -25,6 +25,17 @@ class Profile extends ORM
     }
 
     /**
+     * Returns profile instance by user id
+     *
+     * @param  int    $id User id
+     * @return self
+     */
+    public static function getByUserId(int $id)
+    {
+        return self::where('user_id', '=', $id)->first();
+    }
+
+    /**
      * User
      *
      * @return \mako\database\midgard\relations\BelongsTo

@@ -12,6 +12,17 @@ class Setting extends ORM
     protected $tableName = 'tomos_settings';
 
     /**
+     * Returns setting instance by user id
+     *
+     * @param  int    $id User id
+     * @return self
+     */
+    public static function getByUserId(int $id)
+    {
+        return self::where('user_id', '=', $id)->first();
+    }
+
+    /**
      * User
      *
      * @return \mako\database\midgard\relations\BelongsTo

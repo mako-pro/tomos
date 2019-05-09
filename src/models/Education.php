@@ -12,6 +12,17 @@ class Education extends ORM
     protected $tableName = 'tomos_educations';
 
     /**
+     * Returns rows array by user id
+     *
+     * @param  int    $id User id
+     * @return array
+     */
+    public static function getByUserId(int $id)
+    {
+        return self::where('user_id', '=', $id)->all();
+    }
+
+    /**
      * User
      *
      * @return \mako\database\midgard\relations\BelongsTo
