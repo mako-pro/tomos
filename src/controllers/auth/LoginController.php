@@ -45,24 +45,25 @@ class LoginController extends Controller
      */
     public function handler()
     {
-        $postData = $this->request->getPost()->all();
-        $rules    = $this->config->get('tomos::rules.login');
-        $check    = $this->validator->create($postData, $rules);
+        $post  = $this->request->getPost();
+        $rules = $this->config->get('tomos::rules.login');
 
-        if (! $check->isValid())
+        $validator = $this->validator->create($post->all(), $rules);
+
+        if (! $validator->isValid())
         {
             return $this->jsonResponse([
                 'message' => $this->i18n->get("tomos::auth.102")
             ]);
         }
 
-        $authResult = $this->gatekeeper->login(
-            $postData['email'],
-            $postData['password'],
-            $postData['remember'] ?? false
+        $result = $this->gatekeeper->login(
+            $post->get('email'),
+            $post->get('password'),
+            $post->get('remember') ? true : false
         );
 
-        if ($authResult === true)
+        if ($result === true)
         {
             $this->tomos->touchActivity('auth.login');
 
@@ -72,7 +73,7 @@ class LoginController extends Controller
         }
 
         return $this->jsonResponse([
-            'message' => $this->i18n->get("tomos::auth.{$authResult}")
+            'message' => $this->i18n->get("tomos::auth.{$result}")
         ]);
     }
 

@@ -38,9 +38,9 @@ class ResetPasswordController extends Controller
     {
         $rules = $this->config->get('tomos::rules.action');
 
-        $check = $this->validator->create(['token' => $token], $rules);
+        $validator = $this->validator->create(['token' => $token], $rules);
 
-        if (! $check->isValid())
+        if (! $validator->isValid())
         {
             $this->response->setStatus('403');
 
@@ -59,11 +59,12 @@ class ResetPasswordController extends Controller
      */
     public function handler()
     {
-        $postData   = $this->request->getPost()->all();
-        $rules      = $this->config->get('tomos::rules.action');
-        $checkToken = $this->validator->create($postData, $rules);
+        $post  = $this->request->getPost();
+        $rules = $this->config->get('tomos::rules.action');
 
-        if (! $checkToken->isValid())
+        $validator = $this->validator->create($post->all(), $rules);
+
+        if (! $validator->isValid())
         {
             return $this->jsonResponse([
                 'message' => $this->i18n->get("tomos::auth.reset.fail")
@@ -71,7 +72,7 @@ class ResetPasswordController extends Controller
         }
 
         $user = $this->gatekeeper->getUserRepository()
-            ->getByActionToken($postData['token']);
+            ->getByActionToken($post->get('token'));
 
         if ($user === false)
         {
@@ -81,30 +82,31 @@ class ResetPasswordController extends Controller
         }
 
         $rules = $this->config->get('tomos::rules.reset');
-        $check = $this->validator->create($postData, $rules);
 
-        if (! $check->isValid())
+        $validator = $this->validator->create($post->all(), $rules);
+
+        if (! $validator->isValid())
         {
             $this->response->setStatus('400');
 
             return $this->jsonResponse([
                 'errors'   => true,
-                'messages' => $check->getErrors()
+                'messages' => $validator->getErrors()
             ]);
         }
 
-        if ($postData['email'] !== $user->email)
+        if ($post->get('email') !== $user->getEmail())
         {
             $user->generateActionToken();
 
             $user->save();
 
             return $this->jsonResponse([
-                'message' => $this->i18n->get("tomos::auth.forgot.bademail")
+                'message' => $this->i18n->get("tomos::auth.forgot.bad-email")
             ]);
         }
 
-        $user->setPassword($postData['password']);
+        $user->setPassword($post->get('password'));
 
         $user->generateActionToken();
 

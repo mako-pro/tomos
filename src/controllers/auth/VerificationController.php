@@ -35,9 +35,9 @@ class VerificationController extends Controller
     {
         $rules = $this->config->get('tomos::rules.action');
 
-        $check = $this->validator->create(['token' => $token], $rules);
+        $validator = $this->validator->create(['token' => $token], $rules);
 
-        if (! $check->isValid() || ! $this->gatekeeper->activateUser($token))
+        if (! $validator->isValid() || ! $this->gatekeeper->activateUser($token))
         {
             $this->response->setStatus('400');
 

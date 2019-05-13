@@ -49,24 +49,25 @@ class RegisterController extends Controller
      */
     public function handler()
     {
-        $postData = $this->request->getPost()->all();
-        $rules    = $this->config->get('tomos::rules.register');
-        $check    = $this->validator->create($postData, $rules);
+        $post  = $this->request->getPost();
+        $rules = $this->config->get('tomos::rules.register');
 
-        if (! $check->isValid())
+        $validator = $this->validator->create($post->all(), $rules);
+
+        if (! $validator->isValid())
         {
             $this->response->setStatus('400');
 
             return $this->jsonResponse([
                 'errors'   => true,
-                'messages' => $check->getErrors()
+                'messages' => $validator->getErrors()
             ]);
         }
 
         $user = $this->gatekeeper->createUser(
-            $postData['email'],
-            $postData['username'],
-            $postData['password'],
+            $post->get('email'),
+            $post->get('username'),
+            $post->get('password'),
             ! $this->tomos->verify
         );
 
@@ -75,15 +76,15 @@ class RegisterController extends Controller
         $usersGroup = $groupRepository->getByName($defaultGroup);
         $usersGroup->addUser($user);
 
-        $tomosUser = User::get($user->id);
+        $tomosUser = User::get($user->getId());
         $tomosUser->profile()->create(new Profile);
         $tomosUser->setting()->create(new Setting);
         $tomosUser->location()->create(new Location);
 
         if ($this->tomos->verify === true)
         {
-            $this->tomos->sendUserEmail($user->id, 'verify');
-            $this->session->putFlash('email', $user->email);
+            $this->tomos->sendUserEmail($user->getId(), 'verify');
+            $this->session->putFlash('email', $user->getEmail());
             $route = 'tomos.verification.page';
         }
         else

@@ -3,6 +3,11 @@
 namespace placer\tomos\controllers\account;
 
 use mako\http\routing\Controller;
+use placer\tomos\models\Experience;
+use placer\tomos\models\Education;
+use placer\tomos\models\Location;
+use placer\tomos\models\Country;
+use placer\tomos\models\Profile;
 
 class ProfileController extends Controller
 {
@@ -13,14 +18,19 @@ class ProfileController extends Controller
      */
     public function page()
     {
-        if (! $user = $this->tomos->getCurrentUser())
-        {
-            return $this->redirectResponse(
-                $this->urlBuilder->toRoute('tomos.login.page')
-            );
-        }
+        if (! $user = $this->gatekeeper->getUser())
+            return $this->redirectResponse('tomos.login.page');
 
-        $this->view->render('tomos::account.profile', compact('user'));
+        $id = $user->getId();
+
+        return $this->view->render('tomos::account.profile', [
+            'profile'     => Profile::getByUserId($id)->toArray(),
+            'location'    => $location = Location::getByUserId($id)->toArray(),
+            'country'     => Country::get($location['country_id'])->toArray(),
+            'experiences' => Experience::getByUserId($id),
+            'educations'  => Education::getByUserId($id),
+            'user'        => $user->toArray(),
+        ]);
     }
 
 }

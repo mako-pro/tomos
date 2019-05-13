@@ -45,24 +45,25 @@ class ForgotPasswordController extends Controller
      */
     public function handler()
     {
-        $postData = $this->request->getPost()->all();
-        $rules    = $this->config->get('tomos::rules.forgot');
-        $check    = $this->validator->create($postData, $rules);
+        $post  = $this->request->getPost();
+        $rules = $this->config->get('tomos::rules.forgot');
 
-        if (! $check->isValid())
+        $validator = $this->validator->create($post->all(), $rules);
+
+        if (! $validator->isValid())
         {
             return $this->jsonResponse([
-                'message' => $this->i18n->get("tomos::auth.forgot.bademail")
+                'message' => $this->i18n->get("tomos::auth.forgot.bad-email")
             ]);
         }
 
         $user = $this->gatekeeper->getUserRepository()
-            ->getByEmail($postData['email']);
+            ->getByEmail($post->get('email'));
 
-        if ($this->tomos->verify === true && ! $user->isActivated())
+        if (! $user->isActivated())
         {
              return $this->jsonResponse([
-                'message' => $this->i18n->get("tomos::auth.forgot.noactivated")
+                'message' => $this->i18n->get("tomos::auth.forgot.no-activated")
             ]);
         }
 
@@ -73,9 +74,9 @@ class ForgotPasswordController extends Controller
             ]);
         }
 
-        $this->tomos->sendUserEmail($user->id, 'forgot');
+        $this->tomos->sendUserEmail($user->getId(), 'forgot');
 
-        $this->session->putFlash('email', $user->email);
+        $this->session->putFlash('email', $user->getEmail());
 
         return $this->jsonResponse([
             'url' => $this->urlBuilder->toRoute('tomos.forgot.confirm')

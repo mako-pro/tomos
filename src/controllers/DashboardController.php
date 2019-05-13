@@ -3,6 +3,7 @@
 namespace placer\tomos\controllers;
 
 use mako\http\routing\Controller;
+use placer\tomos\models\Profile;
 
 class DashboardController extends Controller
 {
@@ -13,14 +14,13 @@ class DashboardController extends Controller
      */
     public function page()
     {
-        if (! $user = $this->tomos->getCurrentUser())
-        {
-            return $this->redirectResponse(
-                $this->urlBuilder->toRoute('tomos.login.page')
-            );
-        }
+        if (! $user = $this->gatekeeper->getUser())
+            return $this->redirectResponse('tomos.login.page');
 
-        $this->view->render('tomos::dashboard', compact('user'));
+        return $this->view->render('tomos::dashboard', [
+            'profile' => Profile::getByUserId($user->getId())->toArray(),
+            'user'    => $user->toArray(),
+        ]);
     }
 
 }
