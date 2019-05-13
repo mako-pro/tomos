@@ -19,7 +19,9 @@ class Education extends ORM
      */
     public static function getByUserId(int $id)
     {
-        return self::where('user_id', '=', $id)->all();
+        return self::where('user_id', '=', $id)
+            ->orderBy('id', 'desc')
+            ->all();
     }
 
     /**

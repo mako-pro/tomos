@@ -35,31 +35,6 @@ class Tomos
     }
 
     /**
-     * Returns current auth user
-     *
-     * @return bool|\placer\tomos\models\User
-     */
-    public function getCurrentUser()
-    {
-        $gatekeeper = $this->container->get('gatekeeper');
-
-        $user = $gatekeeper->getUser();
-
-        if ($user === null)
-        {
-            return false;
-        }
-
-        // Sanitize the user object
-
-        $userArr = $user->toArray();
-
-        $userArr['profile'] = $user->profile;
-
-        return (object) $userArr;
-    }
-
-    /**
      * Send user email
      *
      * @param  integer $id     User id
