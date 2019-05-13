@@ -16,7 +16,7 @@ $routes->group(['prefix' => $options['prefix'], 'namespace' => 'placer\tomos\con
 
     if ($options['reset'] ?? false)
     {
-        $routes->get('/password/reset', 'auth\ForgotPasswordController::page', 'tomos.forgot.page');
+        $routes->get('/password/forgot', 'auth\ForgotPasswordController::page', 'tomos.forgot.page');
         $routes->post('/password/email', 'auth\ForgotPasswordController::handler', 'tomos.forgot.handler')->middleware('ajax');
         $routes->get('/password/confirm', 'auth\ForgotPasswordController::confirm', 'tomos.forgot.confirm');
 
