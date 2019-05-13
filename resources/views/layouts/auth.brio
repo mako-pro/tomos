@@ -25,7 +25,7 @@
         <div class="row flex-center min-vh-50 py-6">
           <div class="col-sm-11 col-md-9 col-lg-7 col-xl-6 col-xxl-5">
             <a class="d-block text-center mb-5" href="{url()->base()}">
-              <img src="{$assets}/img/logos/logo-mid.png" class="outline-none" alt="Tomos" width="165">
+              <img class="outline-none" src="{$assets}/img/logos/logo-mid.png" alt="Tomos" width="165">
             </a>
             {include "tomos::partials.message"}
             {block "card"}{/block}

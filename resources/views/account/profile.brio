@@ -1,12 +1,139 @@
 {extends 'tomos::layouts.master'}
 {block 'title'}{parent} - Profile{/block}
+{block 'meda-description'}{parent} Account Profile{/block}
 {block 'content'}
-  <div class="card">
-    <div class="card-header bg-light d-flex justify-content-between">
-      <h5 class="mb-0">Account Profile</h5>
+  <div class="card mb-3">
+    <div class="card-header position-relative min-vh-25 mb-7">
+      {if $profile.cover}
+        <div class="bg-holder rounded-soft rounded-bottom-0" style="background-image:url({$assets}/uploads/user/{$profile.cover})"></div>
+      {else}
+        <div class="bg-holder rounded-soft rounded-bottom-0" style="background-image:url({$assets}/img/users/default/image.jpg)"></div>
+      {/if}
+      <div class="avatar avatar-5xl avatar-profile">
+        {if $profile.avatar}
+          <img class="rounded-circle img-thumbnail shadow-sm" src="{$assets}/uploads/user/{$profile.avatar}" width="200" alt="">
+        {else}
+          <img class="rounded-circle img-thumbnail shadow-sm" src="{$assets}/img/users/default/avatar.png" width="200" alt="">
+        {/if}
+      </div>
     </div>
-    <div class="card-body fs-1">
-      Profile content...
+    <div class="card-body">
+      <div class="row">
+        <div class="col-lg-8">
+          <h4 class="mb-1">{$profile.first_name} {$profile.last_name}
+            <small class="fas fa-check-circle text-primary ml-1" data-toggle="tooltip" data-placement="right" title="Verified" data-fa-transform="shrink-4 down-2"></small>
+          </h4>
+          <h5 class="fs-0 font-weight-normal">{$profile.heading}</h5>
+          <p class="text-500">{$location.city}, {$country.iso_3166_1_alpha3}</p>
+          <button class="btn btn-falcon-primary btn-sm px-3" type="button">Following</button>
+          <button class="btn btn-falcon-default btn-sm px-3 ml-2" type="button">Message</button>
+          <hr class="border-dashed my-4 d-lg-none">
+        </div>
+        <div class="col pl-2 pl-lg-3 ml-1">
+          <a class="media align-items-center mb-2" href="#">
+            <img class="mr-2" src="{$assets}/img/users/default/logo-group1.png" alt="" width="30">
+            <div class="media-body">
+              <h6 class="mb-0">Group Name One</h6>
+            </div>
+          </a>
+          <a class="media align-items-center mb-2" href="#">
+            <img class="mr-2" src="{$assets}/img/users/default/logo-group2.png" alt="" width="30">
+            <div class="media-body">
+              <h6 class="mb-0">Group Name Two</h6>
+            </div>
+          </a>
+          <a class="media align-items-center mb-2" href="#">
+            <img class="mr-2" src="{$assets}/img/users/default/logo-group3.png" alt="" width="30">
+            <div class="media-body">
+              <h6 class="mb-0">Group Name Three</h6>
+            </div>
+          </a>
+          <a class="media align-items-center mb-2" href="#">
+            <img class="mr-2" src="{$assets}/img/users/default/logo-group4.png" alt="" width="30">
+            <div class="media-body">
+              <h6 class="mb-0">Group Name Four</h6>
+            </div>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row no-gutters">
+    <div class="col-lg-8 pr-lg-2">
+      <div class="card mb-3">
+        <div class="card-header bg-light">
+          <h5 class="mb-0">Intro</h5>
+        </div>
+        <div class="card-body text-justify text-1000">
+          {$profile.intro}
+        </div>
+        <div class="card-footer bg-light py-0 border-top">
+          <button class="btn btn-link btn-block" type="button">Show less
+            <span class="fas fa-chevron-up ml-2 fs--2"></span>
+          </button>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-4 pl-lg-2">
+      <div class="sticky-top sticky-sidebar">
+        {if $experiences}
+          <div class="card mb-3">
+            <div class="card-header bg-light">
+              <h5 class="mb-0">Experience</h5>
+            </div>
+            <div class="card-body fs--1">
+              {foreach $experiences as $item last=$last}
+                <div class="media">
+                  <a href="#!">
+                    <img class="img-fluid" src="{$assets}/img/users/default/logo-exp{rand(1,3)}.png" alt="" width="50">
+                  </a>
+                  <div class="media-body position-relative pl-3">
+                    <h6 class="fs-0 mb-0">{$item->position}
+                      <small class="fas fa-check-circle text-primary ml-1" data-toggle="tooltip" data-placement="top" title="Verified" data-fa-transform="shrink-4 down-2"></small>
+                    </h6>
+                    <p class="mb-1"><a href="#!">{$item->company}</a></p>
+                    <p class="text-1000 mb-0">{$item->from_date} - {if $item->is_current == '0'}{$item->to_date}{else}{'Present'}{/if}</p>
+                    <p class="text-1000 mb-0">{$item->city}</p>
+                    {if ! $last}
+                      <hr class="border-dashed border-bottom-0">
+                    {/if}
+                  </div>
+                </div>
+              {/foreach}
+            </div>
+          </div>
+        {/if}
+        {if $educations}
+          <div class="card mb-3">
+            <div class="card-header bg-light">
+              <h5 class="mb-0">Education</h5>
+            </div>
+            <div class="card-body fs--1">
+              {foreach $educations as $item last=$last}
+                <div class="media">
+                  <a href="#!">
+                    <img class="img-fluid" src="{$assets}/img/users/default/logo-edu{rand(1,3)}.png" alt="" width="50">
+                  </a>
+                  <div class="media-body position-relative pl-3">
+                    <h6 class="fs-0 mb-0">
+                      <a href="#!">{$item->school}
+                        <small class="fas fa-check-circle text-primary ml-1" data-toggle="tooltip" data-placement="top" title="Verified" data-fa-transform="shrink-4 down-2"></small>
+                      </a>
+                    </h6>
+                    <p class="mb-1">{$item->sphere}</p>
+                    <p class="text-1000 mb-0">{$item->degree}</p>
+                    <p class="text-1000 mb-0">{$item->from_date} - {$item->to_date}</p>
+                    <p class="text-1000 mb-0">{$item->city}</p>
+                    {if ! $last}
+                      <hr class="border-dashed border-bottom-0">
+                    {/if}
+                  </div>
+                </div>
+              {/foreach}
+            </div>
+          </div>
+        {/if}
+      </div>
     </div>
   </div>
 {/block}

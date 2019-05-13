@@ -8,7 +8,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="theme-color" content="#ffffff">
-    <meta name="description" content="Simple Backend for Frontend">
+    <meta name="description" content="{block 'meda-description'}Simple backend for fronend.{/block}">
     <meta name="csrf-token" content="{token()}">
     <meta name="msapplication-TileImage" content="{$assets}/img/favicons/mstile-150x150.png">
     <link rel="apple-touch-icon" sizes="180x180" href="{$assets}/img/favicons/apple-touch-icon.png">
@@ -24,13 +24,13 @@
     <main class="main" id="top">
       <div class="container">
         <nav class="navbar navbar-vertical navbar-expand-xl navbar-light navbar-glass">
-          <a href="{url()->toRoute('tomos.dashboard.page')}" class="navbar-brand text-left my-3">
+          <a class="navbar-brand text-left my-3" href="{url()->toRoute('tomos.dashboard.page')}">
             <img src="{$assets}/img/logos/logo-small.png" alt="Tomos" width="90">
           </a>
           <div class="collapse navbar-collapse" id="navbarVerticalCollapse">
             <ul class="navbar-nav flex-column">
               <li class="nav-item{if $path|match:"*\/dashboard"} active{/if}">
-                <a href="{url()->toRoute('tomos.dashboard.page')}" class="nav-link" aria-controls="home">
+                <a class="nav-link" href="{url()->toRoute('tomos.dashboard.page')}" aria-controls="home">
                   <div class="d-flex align-items-center">
                     <span class="nav-link-icon">
                       <span class="fas fa-home"></span>
@@ -40,7 +40,7 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a href="#account" class="nav-link dropdown-indicator" data-toggle="collapse" role="button" aria-expanded="false" aria-controls="account">
+                <a class="nav-link dropdown-indicator" href="#account" data-toggle="collapse" role="button" aria-expanded="false" aria-controls="account">
                   <div class="d-flex align-items-center">
                     <span class="nav-link-icon">
                       <span class="fas fa-address-card"></span>
@@ -50,10 +50,10 @@
                 </a>
                 <ul class="nav collapse{if $path|match:"*\/account\/*"} show{/if}" id="account" data-parent="#navbarVerticalCollapse">
                   <li class="nav-item{if $path|match:"*\/account\/profile"} active{/if}">
-                    <a href="{url()->toRoute('tomos.profile.page')}" class="nav-link">Profile</a>
+                    <a class="nav-link" href="{url()->toRoute('tomos.profile.page')}">Profile</a>
                   </li>
                   <li class="nav-item{if $path|match:"*\/account\/settings"} active{/if}">
-                    <a href="{url()->toRoute('tomos.settings.page')}" class="nav-link">Settings</a>
+                    <a class="nav-link" href="{url()->toRoute('tomos.settings.page')}">Settings</a>
                   </li>
                 </ul>
               </li>
@@ -69,7 +69,7 @@
               <span class="navbar-toggler-icon"></span>
             </button>
             <!-- Logo Mobile -->
-            <a href="{url()->toRoute('tomos.dashboard.page')}" class="navbar-brand text-left ml-3">
+            <a class="navbar-brand text-left ml-3" href="{url()->toRoute('tomos.dashboard.page')}">
               <div class="d-flex align-items-center">
                 <img src="{$assets}/img/logos/logo-small.png" alt="Tomos" width="90">
               </div>
@@ -87,21 +87,26 @@
               </ul>
               <!-- Top Right Navigation -->
               <ul class="navbar-nav align-items-center ml-auto">
-                <li class="nav-item dropdown"><a class="nav-link pr-0" id="navbarDropdownUser" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <li class="nav-item dropdown">
+                  <a class="nav-link pr-0" id="navbarDropdownUser" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <div class="avatar avatar-xl">
-                      <img src="{$assets}/img/users/default.png" class="rounded-circle" alt="">
+                      {if $profile.avatar}
+                        <img class="rounded-circle" src="{$assets}/uploads/user/{$profile.avatar}" alt="">
+                      {else}
+                        <img class="rounded-circle" src="{$assets}/img/users/default/avatar.png" alt="">
+                      {/if}
                     </div>
                   </a>
                   <div class="dropdown-menu dropdown-menu-right py-0" aria-labelledby="navbarDropdownUser">
                     <div class="bg-white rounded-soft py-2">
-                      <a href="{url()->toRoute('tomos.profile.page')}" class="dropdown-item font-weight-bold text-warning">
-                        <span>{$user->username}</span>
+                      <a class="dropdown-item font-weight-bold text-warning" href="{url()->toRoute('tomos.profile.page')}">
+                        <span>{$user.username}</span>
                       </a>
                       <div class="dropdown-divider"></div>
-                      <a href="{url()->toRoute('tomos.profile.page')}" class="dropdown-item">Profile</a>
-                      <a href="{url()->toRoute('tomos.settings.page')}" class="dropdown-item">Settings</a>
+                      <a class="dropdown-item" href="{url()->toRoute('tomos.profile.page')}">Profile</a>
+                      <a class="dropdown-item" href="{url()->toRoute('tomos.settings.page')}">Settings</a>
                       <div class="dropdown-divider"></div>
-                      <a href="{url()->toRoute('tomos.logout.page')}" class="dropdown-item">Logout</a>
+                      <a class="dropdown-item" href="{url()->toRoute('tomos.logout.page')}">Logout</a>
                     </div>
                   </div>
                 </li>

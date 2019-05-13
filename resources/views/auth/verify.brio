@@ -1,7 +1,7 @@
 {extends 'tomos::layouts.auth'}
 {block 'title'}{parent} - Verify Email{/block}
 {block 'card'}
-  <div class="card">
+  <div class="card" id="alerts">
     <div class="card-body text-center p-5">
       <img class="d-block mx-auto mb-4" src="{$assets}/img/icons/sent.svg" alt="shield" width="100">
       <h4 class="mb-3">Verify Your Email Address</h4>

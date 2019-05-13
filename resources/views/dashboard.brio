@@ -1,14 +1,15 @@
 {extends 'tomos::layouts.master'}
 {block 'title'}{parent} - Dashboard{/block}
+{block 'meda-description'}{parent} Account Dashboard{/block}
 {block 'content'}
   <div class="card">
     <div class="card-header bg-light d-flex justify-content-between">
       <h5 class="mb-0">
         Hello
-        {if $user->profile->first_name}
-          {$user->profile->first_name}!
+        {if $profile.first_name}
+          {$profile.first_name}!
         {else}
-          {$user->username}!
+          {$user.username}!
         {/if}
       </h5>
     </div>
