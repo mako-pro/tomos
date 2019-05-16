@@ -7,18 +7,18 @@
       <div class="card mb-3 btn-reveal-trigger">
         <div class="card-header position-relative min-vh-25 mb-8">
           <div class="cover-image">
-            <div class="bg-holder rounded-soft rounded-bottom-0" style="background-image:url({$assets}/img/users/default/image.jpg)"></div>
-            <input class="d-none" id="upload-cover-image" type="file" name="cover">
-            <label class="cover-image-file-input" for="upload-cover-image">
+              <div class="bg-holder rounded-soft rounded-bottom-0" id="tomosCover" style="background-image:url({if $profile.cover}{$assets}/uploads/{$profile.cover}{else}{$assets}/img/users/default/cover.jpg{/if})"></div>
+            <input class="d-none sr-only" id="coverInput" type="file" name="cover" accept="image/*">
+            <label class="cover-image-file-input" for="coverInput" data-action="{url()->toRoute('tomos.settings.images')}">
               <span class="fas fa-camera mr-2"></span>
               <span>Change cover photo</span>
             </label>
           </div>
           <div class="avatar avatar-5xl avatar-profile shadow-sm img-thumbnail rounded-circle">
             <div class="h-100 w-100 rounded-circle overflow-hidden position-relative">
-              <img src="{$assets}/img/users/default/avatar.png" width="100" alt="">
-              <input class="d-none" id="profile-image" type="file" name="avatar">
-              <label class="mb-0 overlay-icon d-flex flex-center" for="profile-image">
+              <img id="tomosAvatar" src="{if $profile.avatar}{$assets}/uploads/{$profile.avatar}{else}{$assets}/img/users/default/avatar.png{/if}" width="200" alt="">
+              <input class="d-none sr-only" id="avatarInput" type="file" name="image" accept="image/*">
+              <label class="mb-0 overlay-icon d-flex flex-center" for="avatarInput" data-action="{url()->toRoute('tomos.settings.images')}">
                 <span class="bg-holder overlay overlay-0"></span>
                 <span class="z-index-1 text-white text-center fs--1">
                   <span class="fas fa-camera"></span>
@@ -464,6 +464,49 @@
               <button class="btn btn-primary btn-block" type="submit">Update Password</button>
             </form>
           </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Modals -->
+  <div class="modal fade" id="coverModal" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="modalLabel">Edit Profile Cover</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="img-container">
+            <img id="coverImage" src="" style="max-width:100%">
+          </div>
+        </div>
+        <div class="clearfix px-3 py-3">
+          <button class="btn btn-flacon-default float-left ml-1 mb-1" type="button" data-dismiss="modal">Cancel</button>
+          <button class="btn btn-flacon-default float-right mr-1 mb-1" type="button" id="coverSave">Save Changes</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal fade" id="avatarModal" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="modalLabel">Edit Profile Picture</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="img-container">
+            <img id="avatarImage" src="" style="max-width:100%">
+          </div>
+        </div>
+        <div class="clearfix px-3 py-3">
+          <button class="btn btn-flacon-default float-left ml-1 mb-1" type="button" data-dismiss="modal">Cancel</button>
+          <button class="btn btn-flacon-default float-right mr-1 mb-1" type="button" id="avatarSave">Save Changes</button>
         </div>
       </div>
     </div>

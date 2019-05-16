@@ -4,17 +4,9 @@
 {block 'content'}
   <div class="card mb-3">
     <div class="card-header position-relative min-vh-25 mb-7">
-      {if $profile.cover}
-        <div class="bg-holder rounded-soft rounded-bottom-0" style="background-image:url({$assets}/uploads/user/{$profile.cover})"></div>
-      {else}
-        <div class="bg-holder rounded-soft rounded-bottom-0" style="background-image:url({$assets}/img/users/default/image.jpg)"></div>
-      {/if}
+      <div class="bg-holder rounded-soft rounded-bottom-0" style="background-image:url({if $profile.cover}{$assets}/uploads/{$profile.cover}{else}{$assets}/img/users/default/cover.jpg{/if})"></div>
       <div class="avatar avatar-5xl avatar-profile">
-        {if $profile.avatar}
-          <img class="rounded-circle img-thumbnail shadow-sm" src="{$assets}/uploads/user/{$profile.avatar}" width="200" alt="">
-        {else}
-          <img class="rounded-circle img-thumbnail shadow-sm" src="{$assets}/img/users/default/avatar.png" width="200" alt="">
-        {/if}
+        <img class="rounded-circle img-thumbnail shadow-sm" src="{if $profile.avatar}{$assets}/uploads/{$profile.avatar}{else}{$assets}/img/users/default/avatar.png{/if}" width="200" alt="">
       </div>
     </div>
     <div class="card-body">
@@ -25,8 +17,8 @@
           </h4>
           <h5 class="fs-0 font-weight-normal">{$profile.heading}</h5>
           <p class="text-500">{$location.city}, {$country.iso_3166_1_alpha3}</p>
-          <button class="btn btn-falcon-primary btn-sm px-3" type="button">Following</button>
-          <button class="btn btn-falcon-default btn-sm px-3 ml-2" type="button">Message</button>
+          <button class="btn btn-flacon-primary btn-sm px-3" type="button">Following</button>
+          <button class="btn btn-flacon-default btn-sm px-3 ml-2" type="button">Message</button>
           <hr class="border-dashed my-4 d-lg-none">
         </div>
         <div class="col pl-2 pl-lg-3 ml-1">

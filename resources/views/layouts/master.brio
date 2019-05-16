@@ -18,7 +18,7 @@
     <link rel="manifest" href="{$assets}/img/favicons/manifest.json">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,500,600,700%7cPoppins:100,200,300,400,500,600,700,800,900">
-    <link rel="stylesheet" href="{$assets}/css/app.css">
+    <link rel="stylesheet" href="{$assets}/css/app.css?v={time()}">
   </head>
   <body>
     <main class="main" id="top">
@@ -90,11 +90,7 @@
                 <li class="nav-item dropdown">
                   <a class="nav-link pr-0" id="navbarDropdownUser" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <div class="avatar avatar-xl">
-                      {if $profile.avatar}
-                        <img class="rounded-circle" src="{$assets}/uploads/user/{$profile.avatar}" alt="">
-                      {else}
-                        <img class="rounded-circle" src="{$assets}/img/users/default/avatar.png" alt="">
-                      {/if}
+                      <img class="rounded-circle" src="{if $profile.avatar}{$assets}/uploads/{$profile.avatar}{else}{$assets}/img/users/default/avatar.png{/if}" alt="">
                     </div>
                   </a>
                   <div class="dropdown-menu dropdown-menu-right py-0" aria-labelledby="navbarDropdownUser">
@@ -124,6 +120,7 @@
         </div>
       </div>
     </main>
-    <script src="{$assets}/js/app.js"></script>
+    <script src="{$assets}/js/app.js?v={time()}"></script>
+    <!--script src="{$assets}/js/scripts.js?v={time()}"></script -->
   </body>
 </html>

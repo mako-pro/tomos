@@ -7,6 +7,7 @@ $routes->group(['prefix' => $options['prefix'], 'namespace' => 'placer\tomos\con
     $routes->get('/account/profile', 'account\ProfileController::page', 'tomos.profile.page');
     $routes->get('/account/settings', 'account\SettingsController::page', 'tomos.settings.page');
     $routes->post('/account/settings', 'account\SettingsController::handler', 'tomos.settings.handler')->middleware('ajax');
+    $routes->post('/account/images', 'account\SettingsController::images', 'tomos.settings.images')->middleware('ajax');
 
     if ($options['register'] ?? false)
     {

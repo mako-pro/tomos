@@ -80,4 +80,12 @@ return [
         'allow_follow'     => ['in(["0","1"])'],
     ],
 
+    'account_avatar'   => [
+        'avatar'       => ['required', 'is_uploaded', 'mimetype(["image/png", "image/jpeg"])', 'exact_dimensions(200, 200)'],
+    ],
+
+    'account_cover'    => [
+        'cover'        => ['required', 'is_uploaded', 'mimetype(["image/png", "image/jpeg"])', 'exact_dimensions(1920, 443)'],
+    ],
+
 ];

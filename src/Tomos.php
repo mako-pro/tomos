@@ -2,6 +2,7 @@
 
 namespace placer\tomos;
 
+use DateTime;
 use mako\chrono\Time;
 use mako\utility\Str;
 use mako\syringe\Container;
@@ -50,8 +51,8 @@ class Tomos
 
         $mailer->message("tomos-{$action}")
             ->with('token', $user->getActionToken())
-            ->with('name', $user->username)
-            ->to($user->email, $user->username)
+            ->with('name', $user->getUsername())
+            ->to($user->getEmail(), $user->getUsername())
             ->send(true);
     }
 
@@ -79,12 +80,35 @@ class Tomos
 
         $connection->table('tomos_activity')
             ->insert([
-                'user_id'     => $user->id,
+                'user_id'     => $user->getId(),
                 'action'      => $action,
                 'ip_address'  => $request->getIp(),
                 'user_agent'  => $userAgent,
                 'created_at'  => Time::now()
             ]);
+    }
+
+    /**
+     * Generates upload path for file
+     *
+     * @return string
+     */
+    public function generateFilePath()
+    {
+        $prefix = (new DateTime)->format('m/d/H/');
+        $suffix = $this->getRandomString();
+        return $prefix . $suffix;
+    }
+
+    /**
+     * Generates random string
+     *
+     * @param  int|integer $length
+     * @return string
+     */
+    public function getRandomString(int $length = 24)
+    {
+        return substr(str_shuffle("0123456789abcdefhklmnorstuvwxz"), 0, $length);
     }
 
     /**

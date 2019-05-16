@@ -53,9 +53,9 @@ class SettingsController extends Controller
 
         $formType = $post->get('form_type');
 
-        $formRules = $this->config->get('tomos::rules.' . $formType);
+        $rules = $this->config->get('tomos::rules.' . $formType);
 
-        $validator = $this->validator->create($post->all(), $formRules);
+        $validator = $this->validator->create($post->all(), $rules);
 
         if ($formType == 'account_experience')
         {
@@ -170,6 +170,90 @@ class SettingsController extends Controller
         }
 
         return $this->jsonResponse(['success' => 'Successfull updated']);
+    }
+
+    /**
+     * Manage the account images
+     *
+     * @return mixed
+     */
+    public function images()
+    {
+        if (! $user = $this->gatekeeper->getUser())
+           return $this->declineInvalidRequest();
+
+        if (! $user->isActivated() || $user->isBanned())
+            return $this->declineInvalidRequest();
+
+        $files = $this->request->getFiles();
+
+        $post = $this->request->getPost();
+
+        $formType = $post->get('form_type');
+
+        $rules = $this->config->get('tomos::rules.' . $formType);
+
+        $validator = $this->validator->create($files->all(), $rules);
+
+        if (! $validator->isValid())
+        {
+            $this->response->setStatus('400');
+
+            return $this->jsonResponse([
+                'messages' => $validator->getErrors()
+            ]);
+        }
+
+        $profile = Profile::getByUserId($user->getId());
+
+        $uploadsPath = $this->tomos->uploadsPath;
+
+        $directory = $this->tomos->generateFilePath();
+
+        $directoryPath = $uploadsPath . $directory;
+
+        if (! $this->fileSystem->isDirectory($directoryPath))
+        {
+            $this->fileSystem->createDirectory($directoryPath, '0777', true);
+        }
+
+        switch ($formType)
+        {
+            case 'account_avatar':
+                $suffix = "/avatar_{$user->getId()}.png";
+                $file   = $files->get('avatar');
+                $path   = $directoryPath . $suffix;
+                $file->moveTo($path);
+                $oldAvatar = $profile->avatar;
+                $profile->avatar = $directory . $suffix;
+                $profile->save();
+                break;
+
+            case 'account_cover':
+                $suffix = "/cover_{$user->getId()}.png";
+                $file   = $files->get('cover');
+                $path   = $directoryPath . $suffix;
+                $file->moveTo($path);
+                $oldCover = $profile->cover;
+                $profile->cover = $directory . $suffix;
+                $profile->save();
+                break;
+
+            default:
+                return $this->declineInvalidRequest();
+        }
+
+        if ($oldAvatar ?? null || $oldCover ?? null)
+        {
+            $oldPath = $uploadsPath . ($oldAvatar ?? $oldCover);
+
+            if ($this->fileSystem->isFile($oldPath))
+            {
+                $this->fileSystem->removeDirectory(dirname($oldPath));
+            }
+        }
+
+        return $this->jsonResponse(['success' => '101']);
     }
 
     /**
