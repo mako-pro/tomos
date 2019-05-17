@@ -81,11 +81,11 @@ return [
     ],
 
     'account_avatar'   => [
-        'avatar'       => ['required', 'is_uploaded', 'mimetype(["image/png", "image/jpeg"])', 'exact_dimensions(200, 200)'],
+        'avatar'       => ['required', 'is_uploaded', 'mimetype(["image/jpeg"])', 'exact_dimensions(200, 200)'],
     ],
 
     'account_cover'    => [
-        'cover'        => ['required', 'is_uploaded', 'mimetype(["image/png", "image/jpeg"])', 'exact_dimensions(1920, 443)'],
+        'cover'        => ['required', 'is_uploaded', 'mimetype(["image/jpeg"])', 'exact_dimensions(1920, 443)'],
     ],
 
 ];

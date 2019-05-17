@@ -1,6 +1,15 @@
 {extends 'tomos::layouts.master'}
 {block 'title'}{parent} - Settings{/block}
 {block 'meda-description'}{parent} Manage account settings{/block}
+{block "styles"}
+{parent}
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.5.1/dist/leaflet.css" integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ==" crossorigin=""/>
+{/block}
+{block "scripts"}
+    <script src="https://unpkg.com/leaflet@1.5.1/dist/leaflet.js" integrity="sha512-GffPMF3RvMeYyc1LWMHtK8EbPv0iNZ8/oTtHPx9/cc2ILxQ+u905qIwdpULaqDkyBKgOaB57QTMg7ztg8Jm2Og==" crossorigin=""></script>
+{parent}
+    <script src="{$assets}/js/scripts.js?v={time()}"></script>
+{/block}
 {block 'content'}
   <div class="row">
     <div class="col-12">
@@ -128,9 +137,10 @@
                 </div>
               </div>
               <div class="col-12">
+                <div id="searchResults"></div>
                 <div class="form-group">
                   <label for="geolocation">Geopoint</label>
-                  <div class="form-control" id="geolocation"></div>
+                  <div class="form-control" id="geolocation" style="height:250px;z-index: 1000000000"></div>
                 </div>
               </div>
               <div class="col-12 d-flex justify-content-end">

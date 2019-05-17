@@ -220,7 +220,7 @@ class SettingsController extends Controller
         switch ($formType)
         {
             case 'account_avatar':
-                $suffix = "/avatar_{$user->getId()}.png";
+                $suffix = "/avatar_{$user->getId()}.jpg";
                 $file   = $files->get('avatar');
                 $path   = $directoryPath . $suffix;
                 $file->moveTo($path);
@@ -230,7 +230,7 @@ class SettingsController extends Controller
                 break;
 
             case 'account_cover':
-                $suffix = "/cover_{$user->getId()}.png";
+                $suffix = "/cover_{$user->getId()}.jpg";
                 $file   = $files->get('cover');
                 $path   = $directoryPath . $suffix;
                 $file->moveTo($path);
