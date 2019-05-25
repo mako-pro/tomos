@@ -4,14 +4,14 @@ namespace placer\tomos\migrations;
 
 use mako\database\migrations\Migration;
 
-class Migration_20190505233855 extends Migration
+class Migration_20190518105059 extends Migration
 {
 	/**
 	 * Description.
 	 *
 	 * @var string
 	 */
-	protected $description = 'Create tomos_locations table';
+	protected $description = 'Create tomos_images table';
 
 	/**
 	 * Makes changes to the database structure.
@@ -20,27 +20,27 @@ class Migration_20190505233855 extends Migration
 	{
 		$this->getConnection()->query
 		(
-			"CREATE TABLE `tomos_locations` (
+			"CREATE TABLE `tomos_images` (
 				`id` int(11) unsigned NOT NULL AUTO_INCREMENT,
 				`user_id` int(11) unsigned NOT NULL,
-				`country_id` char(2) NOT NULL DEFAULT 'de',
-				`city` varchar(64) DEFAULT '',
-				`geo_lat` varchar(20) DEFAULT '',
-				`geo_lon` varchar(20) DEFAULT '',
+				`path` varchar(60) NOT NULL,
+				`title` varchar(128) NOT NULL DEFAULT '',
+				`text` text,
+				`file_name` varchar(60) NOT NULL DEFAULT '',
+				`file_type` varchar(25) NOT NULL DEFAULT '',
+				`file_ext` varchar(4) NOT NULL DEFAULT '',
+				`file_size` int(8) unsigned DEFAULT '0',
+				`orient` enum('land','port') DEFAULT 'land',
+				`enabled` tinyint(1) unsigned NOT NULL DEFAULT '1',
 				`created_at` datetime NOT NULL,
 				`updated_at` datetime NOT NULL,
 				PRIMARY KEY (`id`),
-				UNIQUE KEY `user_id` (`user_id`) USING BTREE,
-				KEY `country_id` (`country_id`),
-				CONSTRAINT `tomos_locations_ibfk_1`
+				UNIQUE KEY `path` (`path`),
+				KEY `user_id` (`user_id`),
+				CONSTRAINT `tomos_images_ibfk_1`
 					FOREIGN KEY (`user_id`)
 					REFERENCES `users` (`id`)
 					ON DELETE CASCADE
-					ON UPDATE NO ACTION,
-				CONSTRAINT `tomos_locations_ibfk_2`
-					FOREIGN KEY (`country_id`)
-					REFERENCES `tomos_countries` (`id`)
-					ON DELETE NO ACTION
 					ON UPDATE NO ACTION
 			) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;"
 		);
@@ -53,7 +53,8 @@ class Migration_20190505233855 extends Migration
 	{
 		$this->getConnection()->query
 		(
-			"DROP TABLE IF EXISTS `tomos_locations`;"
+			"DROP TABLE IF EXISTS `tomos_images`;"
 		);
 	}
+
 }

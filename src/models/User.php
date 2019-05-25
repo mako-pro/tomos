@@ -75,6 +75,16 @@ class User extends MakoUser
     }
 
     /**
+     * User images
+     *
+     * @return \mako\database\midgard\relations\HasMany
+     */
+    public function images()
+    {
+        return $this->hasMany(Images::class);
+    }
+
+    /**
      * Search scope
      *
      * @param  \mako\database\query\Query $query
