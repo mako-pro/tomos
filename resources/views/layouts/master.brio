@@ -45,7 +45,7 @@
                 <a class="nav-link dropdown-indicator" href="#account" data-toggle="collapse" role="button" aria-expanded="false" aria-controls="account">
                   <div class="d-flex align-items-center">
                     <span class="nav-link-icon">
-                      <span class="fas fa-address-card"></span>
+                      <span class="fas fa-user-alt"></span>
                     </span>
                     <span>Account</span>
                   </div>
@@ -56,6 +56,21 @@
                   </li>
                   <li class="nav-item{if $path|match:"*\/account\/settings"} active{/if}">
                     <a class="nav-link" href="{url()->toRoute('tomos.settings.page')}">Settings</a>
+                  </li>
+                </ul>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link dropdown-indicator" href="#content" data-toggle="collapse" role="button" aria-expanded="false" aria-controls="content">
+                  <div class="d-flex align-items-center">
+                    <span class="nav-link-icon">
+                      <span class="fas fa-boxes"></span>
+                    </span>
+                    <span>Content</span>
+                  </div>
+                </a>
+                <ul class="nav collapse{if $path|match:"*\/content\/*"} show{/if}" id="content" data-parent="#navbarVerticalCollapse">
+                  <li class="nav-item{if $path|match:"*\/content\/images"} active{/if}">
+                    <a class="nav-link" href="{url()->toRoute('tomos.images.page')}">Images</a>
                   </li>
                 </ul>
               </li>

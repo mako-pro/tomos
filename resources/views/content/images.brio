@@ -1,0 +1,143 @@
+{extends 'tomos::layouts.master'}
+{block 'title'}{parent} - Images{/block}
+{block 'meda-description'}{parent} Images manegement{/block}
+{block 'content'}
+  <div class="card mb-3">
+    <div class="bg-holder rounded-soft d-none d-md-block bg-card" style="background-image:url({$assets}/img/ui/corner-bg.jpg);"></div>
+    <div class="card-body">
+      <div class="row">
+        <div class="col-lg-8">
+          <h3 class="mb-0">Images Manegement</h3>
+          <p class="mt-2 text-600">Uploading and editing your images. Settings for uploaded images.</p>
+          <button class="btn btn-outline-primary mr-1" id="tomosAddImage" type="button" data-toggle="modal" data-target="#newimgModal">
+            <span class="fas fa-cloud-upload-alt mr-2" data-fa-transform="shrink-3"></span>Upload New Image
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="card mb-3">
+    {if $images->getPagination()->items() == 0}
+      <div class="card-header">
+        <h5>No images yet uploaded...</h5>
+      </div>
+      <div class="card-footer"></div>
+    {else}
+      <div class="card-header">
+        <h5>All Images &nbsp;
+          <span class="badge badge-soft-primary fs--1" id="img-counter">{$images->getPagination()->items()}</span>
+        </h5>
+      </div>
+      <div class="card-body bg-light">
+        <div class="row px-md-2" id="placeImageCards">
+          {foreach $images as $image}
+            <div class="col-md-6 col-xxl-4 px-md-2 image-card" id="card_{$image->id}" data-action="{url()->toRoute('tomos.images.edit', ['id' => $image->id])}">
+              <div class="card mb-3">
+                <div class="card-img-top rounded-top-0" style="max-height:210px;overflow:hidden">
+                  <a class="image-link" href="{url()->to("/placer/tomos/uploads/{$image->path}/{$image->file_name}.{$image->file_ext}")}">
+                    <img class="img-fluid" src="{url()->to("/placer/tomos/uploads/{$image->path}/__{$image->file_name}.jpg")}" width="100%" alt="{$image->title}">
+                  </a>
+                </div>
+                <div class="card-body">
+                  <div class="image-titles">
+                    <div class="text-black fs-1 image-title" style="height:32px;overflow:hidden;cursor:pointer">{$image->title}</div>
+                    <div class="text-800 fs--1 image-text" style="height:53px;overflow:hidden;cursor:pointer">{$image->text}</div>
+                  </div>
+                  <hr class="border-300 mt-3 mb-0">
+                  <p class="text-500 my-2"><small>{$image->created_at->format('Y/m/d, H:i')}</small></p>
+                  <div class="clearfix">
+                    <div class="custom-control custom-switch float-left">
+                      <input class="custom-control-input" id="enabled_{$image->id}" type="checkbox" name="enabled" value="1" {if $image->enabled == 1}checked="checked"{/if}>
+                      <label class="custom-control-label" for="enabled_{$image->id}">{if $image->enabled == 1}Enabled{else}Disabled{/if}</label>
+                    </div>
+                    <button class="close float-right" type="button" aria-label="Close">
+                      <span class="fs-3" aria-hidden="true">×</span>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          {/foreach}
+        </div>
+      </div>
+      <div class="col card-footer">
+        {$images->getPagination()->render('tomos::partials.pagination')}
+      </div>
+    {/if}
+  </div>
+  <!-- Media Layer -->
+  <div id="mediaLayer" class="mel-body">
+    <span class="mel-close">×</span>
+    <img class="mel-image">
+    <div class="mel-title fs-2"></div>
+    <div class="mel-text"></div>
+  </div>
+  <!-- New Image Modal -->
+  <div class="modal fade" id="newimgModal" data-keyboard="false" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="newimg-label" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="newimg-label">New Image</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body bg-light">
+          <div class="text-center mt-3">
+            <label for="newimgFile" style="cursor:pointer;">
+              <h5 class="text-500"><i class="fas fa-folder-open mr-2"></i>Click to choose the image</h5>
+              <p class="text-400 mt-3">Some text for tips...</p>
+              <div class="custom-control custom-checkbox">
+                <input class="custom-control-input" id="mode-switcher" type="checkbox" name="orient" value="port">
+                <label class="custom-control-label" for="mode-switcher">Portrait orientation image</label>
+              </div>
+            </label>
+            <input class="d-none" id="newimgFile" type="file" name="image" value="" accept="image/*">
+          </div>
+          <div class="img-container">
+            <img id="newimgImage" src="" style="max-width:100%;">
+          </div>
+          <div class="d-none mt-2" id="inputsPanel">
+            <form id="newimgForm" method="POST" action="{url()->toRoute('tomos.images.add')}">
+              <label for="title">Title</label>
+              <input class="form-control" id="title" type="text" name="title" value="">
+              <label for="text">Description</label>
+              <textarea class="form-control" id="text" name="text" rows="4"></textarea>
+            </form>
+          </div>
+        </div>
+        <div class="clearfix px-3 py-3">
+          <button class="btn btn-secondary float-left ml-1 mb-1" type="button" data-dismiss="modal">Cancel</button>
+          <button class="btn btn-primary float-right mr-1 mb-1" type="button" id="newimgButton" disabled="">Save Image</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Edit Image Titles Modal -->
+  <div class="modal fade" id="editimgModal" data-keyboard="false" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="editimg-label" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="editimg-label">Edit Image Titles</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body bg-light">
+          <div class="mt-2" id="editimgInputs">
+            <form id="newimgForm" method="POST" action="">
+              <label for="title">Title</label>
+              <input class="form-control" id="imgeditTitle" type="text" name="title" value="">
+              <label for="text">Description</label>
+              <textarea class="form-control" id="imgeditText" name="text" rows="4"></textarea>
+            </form>
+          </div>
+        </div>
+        <div class="clearfix px-3 py-3">
+          <button class="btn btn-secondary float-left ml-1 mb-1" type="button" data-dismiss="modal">Cancel</button>
+          <button class="btn btn-primary float-right mr-1 mb-1" type="button" id="editimgButton">Save Image</button>
+        </div>
+      </div>
+    </div>
+  </div>
+{/block}
