@@ -9,6 +9,10 @@ $routes->group(['prefix' => $options['prefix'], 'namespace' => 'placer\tomos\con
     $routes->post('/account/settings', 'account\SettingsController::handler', 'tomos.settings.handler')->middleware('ajax');
     $routes->post('/account/images', 'account\SettingsController::images', 'tomos.settings.images')->middleware('ajax');
 
+    $routes->get('/content/images', 'content\ImagesController::page', 'tomos.images.page');
+    $routes->post('/content/add-image', 'content\ImagesController::addImage', 'tomos.images.add')->middleware('ajax');
+    $routes->post('/content/edit-image/{id}', 'content\ImagesController::editImage', 'tomos.images.edit')->middleware('ajax');
+
     if ($options['register'] ?? false)
     {
         $routes->get('/register', 'auth\RegisterController::page', 'tomos.register.page');

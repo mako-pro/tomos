@@ -27,6 +27,8 @@ return [
         'password'     => ['required', 'min_length(6)', 'max_length(32)', 'match("password_confirmation")'],
     ],
 
+    // Account
+
     'account_profile'  => [
         'first_name'   => ['required', 'alpha_unicode', 'min_length(3)', 'max_length(32)'],
         'last_name'    => ['required', 'alpha_unicode', 'min_length(3)', 'max_length(32)'],
@@ -81,11 +83,29 @@ return [
     ],
 
     'account_avatar'   => [
-        'avatar'       => ['required', 'is_uploaded', 'mimetype(["image/jpeg"])', 'exact_dimensions(200, 200)'],
+        'avatar' => ['required', 'is_uploaded', 'mimetype(["image/jpeg"])', 'exact_dimensions(200, 200)'],
     ],
 
     'account_cover'    => [
-        'cover'        => ['required', 'is_uploaded', 'mimetype(["image/jpeg"])', 'exact_dimensions(1920, 443)'],
+        'cover' => ['required', 'is_uploaded', 'mimetype(["image/jpeg"])', 'exact_dimensions(1920, 443)'],
+    ],
+
+    // Content
+
+    'content' => [
+        'images' => [
+            'add' => [
+                'orient'   => ['required', 'in(["land","port"])'],
+                'cropped'  => ['required', 'is_uploaded', 'mimetype(["image/jpeg"])'],
+                'original' => ['required', 'is_uploaded', 'mimetype(["image/png","image/jpeg"])', 'max_filesize("3MiB")'],
+                'title'    => ['required', 'min_length(6)', 'max_length(128)'],
+                'text'     => ['optional', 'min_length(10)', 'max_length(500)'],
+            ],
+            'edit' => [
+                'title'    => ['required', 'min_length(6)', 'max_length(128)'],
+                'text'     => ['optional', 'min_length(10)', 'max_length(500)'],
+            ],
+        ],
     ],
 
 ];
