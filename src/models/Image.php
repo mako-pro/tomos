@@ -25,13 +25,13 @@ class Image extends ORM
     }
 
     /**
-     * Returns image by id and user_id
+     * Returns the image by id and user_id
      *
      * @param  int    $id       Image id
      * @param  int    $user_id  User id
      * @return Image
      */
-    public static function getImageByIdUserId($id, $user_id)
+    public static function getFirstByUserId($id, $user_id)
     {
          return self::where('id', '=', $id)
              ->where('user_id', '=', $user_id)

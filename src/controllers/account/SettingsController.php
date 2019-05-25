@@ -46,9 +46,6 @@ class SettingsController extends Controller
         if (! $user = $this->gatekeeper->getUser())
            return $this->declineInvalidRequest();
 
-        if (! $user->isActivated() || $user->isBanned())
-            return $this->declineInvalidRequest();
-
         $post = $this->request->getPost();
 
         $formType = $post->get('form_type');
