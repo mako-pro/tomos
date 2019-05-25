@@ -12,7 +12,7 @@ class Image extends ORM
     protected $tableName = 'tomos_images';
 
     /**
-     * Returns pagination by user id
+     * Returns images with pagination by user id
      *
      * @param  int    $id User id
      * @return array
