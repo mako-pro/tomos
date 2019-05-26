@@ -13,6 +13,10 @@ $routes->group(['prefix' => $options['prefix'], 'namespace' => 'placer\tomos\con
     $routes->post('/content/add-image', 'content\ImagesController::addImage', 'tomos.images.add')->middleware('ajax');
     $routes->post('/content/edit-image/{id}', 'content\ImagesController::editImage', 'tomos.images.edit')->middleware('ajax');
 
+    $routes->get('/content/articles', 'content\ArticlesController::page', 'tomos.articles.page');
+    $routes->post('/content/add-article', 'content\ArticlesController::addArticle', 'tomos.articles.add')->middleware('ajax');
+    $routes->post('/content/edit-article/{id}', 'content\ArticlesController::editArticle', 'tomos.articles.edit')->middleware('ajax');
+
     if ($options['register'] ?? false)
     {
         $routes->get('/register', 'auth\RegisterController::page', 'tomos.register.page');
