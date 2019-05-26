@@ -65,6 +65,24 @@
           </button>
         </div>
       </div>
+      {if count($images) > 0}
+        <div class="card mb-3 mb-xl-0" id="profileImages">
+          <div class="card-header bg-light">
+            <h5 class="mb-0">Photos</h5>
+          </div>
+          <div class="card-body overflow-hidden">
+            <div class="row no-gutters">
+              {foreach $images as $image}
+                <div class="col-{if $image->orient == 'land'}6{else}4{/if} p-1 image-item">
+                  <a class="image-link" href="{url()->to("/placer/tomos/uploads/{$image->path}/{$image->file_name}.{$image->file_ext}")}" data-title="{$image->title}" data-text="{$image->text}">
+                    <img class="rounded w-100" src="{url()->to("/placer/tomos/uploads/{$image->path}/__{$image->file_name}.jpg")}" alt="" />
+                  </a>
+                </div>
+              {/foreach}
+            </div>
+          </div>
+        </div>
+      {/if}
     </div>
     <div class="col-lg-4 pl-lg-2">
       <div class="sticky-top sticky-sidebar">
@@ -127,5 +145,12 @@
         {/if}
       </div>
     </div>
+  </div>
+  <!-- Media Layer -->
+  <div id="mediaLayer" class="mel-body">
+    <span class="mel-close">×</span>
+    <img class="mel-image">
+    <div class="mel-title fs-2"></div>
+    <div class="mel-text"></div>
   </div>
 {/block}

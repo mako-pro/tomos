@@ -12,6 +12,22 @@ class Image extends ORM
     protected $tableName = 'tomos_images';
 
     /**
+     * Returns rows array by user id
+     *
+     * @param  int     $id User id
+     * @param  int     $limit
+     * @return array
+     */
+    public static function getByUserId(int $id, int $limit = 10)
+    {
+        return self::where('user_id', '=', $id)
+            ->where('enabled', '>', 0)
+            ->orderBy('id', 'desc')
+            ->limit($limit)
+            ->all();
+    }
+
+    /**
      * Returns images with pagination by user id
      *
      * @param  int    $id User id
