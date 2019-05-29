@@ -1,0 +1,177 @@
+{extends 'tomos::layouts.master'}
+{block 'title'}{parent} - Articles{/block}
+{block 'meda-description'}{parent} Articles manegement{/block}
+{block 'scripts'}
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/speakingurl/14.0.1/speakingurl.min.js"></script>
+{parent}
+{/block}
+{block 'content'}
+  <div class="card mb-3">
+    <div class="bg-holder rounded-soft d-none d-md-block bg-card" style="background-image:url({$assets}/img/ui/corner-bg.jpg);"></div>
+    <div class="card-body">
+      <div class="row">
+        <div class="col-lg-8">
+          <h3 class="mb-0">Articles Manegement</h3>
+          <p class="mt-2 text-600">Create and update articles. Manage articles settings.</p>
+          <button class="btn btn-flacon-default mr-1" id="tomosAddArticle" type="button" data-toggle="modal" data-target="#newartModal">
+            <span class="fas fa-plus mr-2" data-fa-transform="shrink-3"></span>Add New Article
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="card mb-3">
+    {if $articles->getPagination()->items() == 0}
+      <div class="card-header">
+        <h5>No articles yet...</h5>
+      </div>
+      <div class="card-footer"></div>
+    {else}
+      <div class="card-header border-bottom">
+        <h5>All Articles &nbsp;
+          <span class="badge badge-soft-primary fs--1" id="articlesCounter">{$articles->getPagination()->items()}</span>
+        </h5>
+      </div>
+      <div class="card-body bg-light">
+        <div class="row" id="placeArticleCards">
+          {foreach $articles as $article}
+            <div class="col-12 article-card" id="card_{$article->id}" data-action="{url()->toRoute('tomos.articles.edit', ['id' => $article->id])}">
+              <div class="card mb-3">
+                <div class="card-header pb-1">
+                  <h4 class="article-title" style="max-height:30px;overflow:hidden">
+                    <a href="{url()->to("/articles/{$article->uuid}-{$article->slug}")}" target="_blank">{$article->title}</a>
+                  </h4>
+                </div>
+                <div class="d-none article-slug">{$article->slug}</div>
+                <div class="row no-gutters card-body pt-2">
+                  <div class="col-md-6 col-xl-5 col-xxl-4 mb-2 article-cover" style="max-height:270px;overflow:hidden;cursor:pointer">
+                    <img class="rounded cover-image" src="{url()->to("/placer/tomos/uploads/{$article->cover}")}" alt="" width="100%">
+                  </div>
+                  <div class="col-md-6 col-xl-7 col-xxl-8 pl-md-3 article-body" style="max-height:173px;overflow:hidden;cursor:pointer">
+                    {$article->body}
+                  </div>
+                  <div class="col">
+                    <hr class="border-300 mt-3 mt-md-1 mb-0">
+                    <p class="text-500 my-2"><small>{$article->created_at->format('Y/m/d, H:i')}</small></p>
+                    <div class="clearfix">
+                      <div class="custom-control custom-switch float-left">
+                        <input class="custom-control-input" id="enabled_{$article->id}" type="checkbox" name="enabled" value="1" {if $article->enabled == 1}checked="checked"{/if}>
+                        <label class="custom-control-label" for="enabled_{$article->id}">{if $article->enabled == 1}Enabled{else}Disabled{/if}</label>
+                      </div>
+                      <button class="close float-right" type="button" aria-label="Close">
+                        <span class="fs-3" aria-hidden="true">×</span>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          {/foreach}
+        </div>
+      </div>
+      <div class="col card-footer border-top">
+        {if $articles->getPagination()->numberOfPages() > 1}
+          {$articles->getPagination()->render('tomos::partials.pagination')}
+        {/if}
+      </div>
+    {/if}
+  </div>
+  <!-- New Article Modal -->
+  <div class="modal fade" id="newartModal" data-keyboard="false" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="newart-label" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="newart-label">New Article</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body bg-light">
+          <div class="text-center mt-3">
+            <label for="newartFile" style="cursor:pointer;">
+              <h5 class="text-500"><i class="fas fa-cloud-upload-alt mr-2"></i>Upload the image for article cover</h5>
+              <p class="text-400 mt-3">Some text for tips...</p>
+            </label>
+            <input class="d-none" id="newartFile" type="file" name="cover" value="" accept="image/*">
+          </div>
+          <div class="img-container">
+            <img id="newartCover" src="" style="max-width:100%;">
+          </div>
+          <div class="d-none mt-2" id="inputsPanel">
+            <form id="newartForm" method="POST" action="{url()->toRoute('tomos.articles.add')}">
+              <label for="newTitle">Title</label>
+              <input class="form-control" id="newTitle" type="text" name="title" value="">
+              <label for="newSlug">Slug</label>
+              <input class="form-control" id="newSlug" type="text" name="slug" value="">
+              <label for="newBody">Body</label>
+              <textarea class="form-control" id="newBody" name="body" rows="5"></textarea>
+            </form>
+          </div>
+        </div>
+        <div class="clearfix px-3 py-3">
+          <button class="btn btn-secondary float-left ml-1 mb-1" type="button" data-dismiss="modal">Cancel</button>
+          <button class="btn btn-primary float-right mr-1 mb-1" type="button" id="newartButton" disabled="">Save Article</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Edit Text Modal -->
+  <div class="modal fade" id="edittextModal" data-keyboard="false" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="edittext-label" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="edittext-label">Edit Article</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body bg-light">
+          <div class="mt-2" id="edittextInputs">
+            <form method="POST" action="">
+              <label for="arteditTitle">Title</label>
+              <input class="form-control" id="arteditTitle" type="text" name="title" value="">
+              <label for="arteditSlug">Slug</label>
+              <input class="form-control" id="arteditSlug" type="text" name="slug" value="">
+              <label for="arteditBody">Body</label>
+              <textarea class="form-control" id="arteditBody" name="body" rows="5"></textarea>
+            </form>
+          </div>
+        </div>
+        <div class="clearfix px-3 py-3">
+          <button class="btn btn-secondary float-left ml-1 mb-1" type="button" data-dismiss="modal">Cancel</button>
+          <button class="btn btn-primary float-right mr-1 mb-1" type="button" id="edittextButton">Save Changes</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Edit Image Modal -->
+  <div class="modal fade" id="editcoverModal" tabindex="-1" role="dialog" aria-labelledby="aditcover-label" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="aditcover-label">Edit Article Cover</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body bg-light">
+          <div class="text-center mt-3">
+            <label for="editcoverFile" style="cursor:pointer;">
+              <h5 class="text-500"><i class="fas fa-cloud-upload-alt mr-2"></i>Upload new image for article cover</h5>
+              <p class="text-400 mt-3">Some text for tips...</p>
+            </label>
+            <input class="d-none" id="editcoverFile" type="file" name="cover" value="" accept="image/*">
+          </div>
+          <div class="img-container">
+            <img id="editcoverImage" src="" style="max-width:100%;">
+          </div>
+        </div>
+        <div class="mt-2" id="editcoverInputs"></div>
+        <div class="clearfix px-3 py-3">
+          <button class="btn btn-secondary float-left ml-1 mb-1" type="button" data-dismiss="modal">Cancel</button>
+          <button class="btn btn-primary float-right mr-1 mb-1" type="button" id="editcoverButton">Save Changes</button>
+        </div>
+      </div>
+    </div>
+  </div>
+{/block}

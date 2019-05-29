@@ -53,7 +53,7 @@
   <div class="row no-gutters">
     <div class="col-lg-8 pr-lg-2">
       <div class="card mb-3">
-        <div class="card-header bg-light">
+        <div class="card-header bg-light border-bottom">
           <h5 class="mb-0">Intro</h5>
         </div>
         <div class="card-body text-justify text-1000">
@@ -67,8 +67,9 @@
       </div>
       {if count($images) > 0}
         <div class="card mb-3 mb-xl-0" id="profileImages">
-          <div class="card-header bg-light">
+          <div class="card-header bg-light border-bottom d-flex justify-content-between">
             <h5 class="mb-0">Photos</h5>
+            <a class="text-sans-serif" href="{url()->to('/tomos/content/images')}">All photos</a>
           </div>
           <div class="card-body overflow-hidden">
             <div class="row no-gutters">
@@ -83,6 +84,33 @@
           </div>
         </div>
       {/if}
+      {if count($articles) > 0}
+      <div class="card mt-3 mb-3 mb-xl-0" id="profileArticles">
+        <div class="card-header bg-light border-bottom d-flex justify-content-between">
+          <h5 class="mb-0">Articles</h5>
+          <a class="text-sans-serif" href="{url()->to('/tomos/content/articles')}">All articles</a>
+        </div>
+        <div class="card-body overflow-hidden">
+          <div class="row no-gutters">
+          {foreach $articles as $article}
+            <div class="col-md-5 mb-3" style="max-height:170px;overflow:hidden">
+              <a href="{url()->to("/articles/{$article->uuid}-{$article->slug}")}" target="_blank">
+                <img class="mr-3 rounded" src="{url()->to("/placer/tomos/uploads/{$article->cover}")}" alt="" width="100%">
+              </a>
+            </div>
+            <div class="col-md-7 pl-md-3 mb-3" style="max-height:120px;overflow:hidden">
+              <h5 class="mt-0 mb-1" style="max-height:26px;overflow:hidden">
+                <a href="{url()->to("/articles/{$article->uuid}-{$article->slug}")}" target="_blank">{$article->title} </a>
+              </h5>
+              <div class="fs--1">
+                {$article->body|truncate:300}
+              </div>
+            </div>
+          {/foreach}
+          </div>
+        </div>
+      </div>
+    {/if}
     </div>
     <div class="col-lg-4 pl-lg-2">
       <div class="sticky-top sticky-sidebar">

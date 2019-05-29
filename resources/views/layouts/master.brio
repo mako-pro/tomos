@@ -72,6 +72,9 @@
                   <li class="nav-item{if $path|match:"*\/content\/images"} active{/if}">
                     <a class="nav-link" href="{url()->toRoute('tomos.images.page')}">Images</a>
                   </li>
+                  <li class="nav-item{if $path|match:"*\/content\/articles"} active{/if}">
+                    <a class="nav-link" href="{url()->toRoute('tomos.articles.page')}">Articles</a>
+                  </li>
                 </ul>
               </li>
             </ul>

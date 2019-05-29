@@ -9,8 +9,8 @@
         <div class="col-lg-8">
           <h3 class="mb-0">Images Manegement</h3>
           <p class="mt-2 text-600">Uploading and editing your images. Settings for uploaded images.</p>
-          <button class="btn btn-outline-primary mr-1" id="tomosAddImage" type="button" data-toggle="modal" data-target="#newimgModal">
-            <span class="fas fa-cloud-upload-alt mr-2" data-fa-transform="shrink-3"></span>Upload New Image
+          <button class="btn btn-flacon-default mr-1" id="tomosAddImage" type="button" data-toggle="modal" data-target="#newimgModal">
+            <span class="fas fa-plus mr-2" data-fa-transform="shrink-3"></span>Add New Image
           </button>
         </div>
       </div>
@@ -23,7 +23,7 @@
       </div>
       <div class="card-footer"></div>
     {else}
-      <div class="card-header">
+      <div class="card-header border-bottom">
         <h5>All Images &nbsp;
           <span class="badge badge-soft-primary fs--1" id="img-counter">{$images->getPagination()->items()}</span>
         </h5>
@@ -60,8 +60,10 @@
           {/foreach}
         </div>
       </div>
-      <div class="col card-footer">
-        {$images->getPagination()->render('tomos::partials.pagination')}
+      <div class="col card-footer  border-top">
+        {if $images->getPagination()->numberOfPages() > 1}
+          {$images->getPagination()->render('tomos::partials.pagination')}
+        {/if}
       </div>
     {/if}
   </div>
@@ -125,7 +127,7 @@
         </div>
         <div class="modal-body bg-light">
           <div class="mt-2" id="editimgInputs">
-            <form id="newimgForm" method="POST" action="">
+            <form method="POST" action="">
               <label for="title">Title</label>
               <input class="form-control" id="imgeditTitle" type="text" name="title" value="">
               <label for="text">Description</label>
