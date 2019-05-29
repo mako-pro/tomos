@@ -119,15 +119,7 @@ class ImagesController extends Controller
         $image->save();
 
         $responseData = [
-            'href'    => $this->urlBuilder->to("/placer/tomos/uploads/{$imagePath}/{$fileName}.{$fileExt}"),
-            'url'     => $this->urlBuilder->to("/placer/tomos/uploads/{$imagePath}/__{$fileName}.jpg"),
-            'action'  => $this->urlBuilder->toRoute('tomos.images.edit', ['id' => $image->id]),
-            'orient'  => $image->orient,
-            'title'   => $image->title,
-            'text'    => $image->text,
-            'date'    => $image->created_at->format('Y/m/d, h:i'),
-            'enabled' => $image->enabled,
-            'id'      => $image->id,
+            'url' => $this->urlBuilder->to("/tomos/content/images"),
         ];
 
         return $this->jsonResponse(['success' => $responseData]);
@@ -174,7 +166,7 @@ class ImagesController extends Controller
         {
             case 'edit-titles':
                 $image->title = $post->get('title');
-                $image->text  = $post->get('text');
+                $image->text  = Str::nl2br($post->get('text'));
                 $image->save();
                 $success = ['title' => $image->title, 'text' => $image->text];
                 break;

@@ -12,13 +12,13 @@ class Image extends ORM
     protected $tableName = 'tomos_images';
 
     /**
-     * Returns rows array by user id
+     * Find latest images by user id with number limit
      *
      * @param  int     $id User id
      * @param  int     $limit
      * @return array
      */
-    public static function getByUserId(int $id, int $limit = 10)
+    public static function latestByUserId(int $id, int $limit = 10)
     {
         return self::where('user_id', '=', $id)
             ->where('enabled', '>', 0)
@@ -28,7 +28,7 @@ class Image extends ORM
     }
 
     /**
-     * Returns images with pagination by user id
+     * Find images by user id with pagination
      *
      * @param  int    $id User id
      * @return array

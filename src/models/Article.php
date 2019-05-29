@@ -36,13 +36,13 @@ class Article extends ORM
     }
 
     /**
-     * Find top level articles by user id with limit
+     * Find latest top level articles by user id with limit
      *
      * @param  int     $id User id
      * @param  int     $limit
      * @return array
      */
-    public static function getByUserId(int $id, int $limit = 10)
+    public static function latestByUserId(int $id, int $limit = 5)
     {
         return self::where('user_id', '=', $id)
             ->where('parent_id', '=', 0)

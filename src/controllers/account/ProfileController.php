@@ -8,6 +8,7 @@ use placer\tomos\models\Education;
 use placer\tomos\models\Location;
 use placer\tomos\models\Country;
 use placer\tomos\models\Profile;
+use placer\tomos\models\Article;
 use placer\tomos\models\Image;
 
 class ProfileController extends Controller
@@ -30,6 +31,7 @@ class ProfileController extends Controller
             'country'     => Country::get($location['country_id'])->toArray(),
             'experiences' => Experience::getByUserId($id),
             'educations'  => Education::getByUserId($id),
+            'articles'    => Article::latestByUserId($id),
             'images'      => $this->createImagesList($id),
             'user'        => $user->toArray(),
         ]);
@@ -43,7 +45,7 @@ class ProfileController extends Controller
      */
     protected function createImagesList($id)
     {
-        $images = Image::getByUserId($id);
+        $images = Image::latestByUserId($id);
 
         $land = [];
         $port = [];
