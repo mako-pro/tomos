@@ -106,6 +106,24 @@ return [
                 'text'     => ['optional', 'min_length(10)', 'max_length(500)'],
             ],
         ],
+        'articles' => [
+            'add' => [
+                'cover'    => ['required', 'is_uploaded', 'mimetype(["image/jpeg"])', 'exact_dimensions(752, 423)'],
+                'original' => ['required', 'is_uploaded', 'mimetype(["image/png","image/jpeg"])', 'max_filesize("3MiB")', 'min_dimensions(752, 423)'],
+                'title'    => ['required', 'min_length(6)', 'max_length(255)'],
+                'slug'     => ['required', 'min_length(6)', 'max_length(255)', 'alpha_dash'],
+                'body'     => ['required', 'min_length(250)', 'max_length(5000)'],
+            ],
+            'edit-text' => [
+                'title'    => ['required', 'min_length(6)', 'max_length(255)'],
+                'slug'     => ['required', 'min_length(6)', 'max_length(255)', 'alpha_dash'],
+                'body'     => ['required', 'min_length(250)', 'max_length(5000)'],
+            ],
+            'edit-cover'   => [
+                'cover'    => ['required', 'is_uploaded', 'mimetype(["image/jpeg"])', 'exact_dimensions(752, 423)'],
+                'original' => ['required', 'is_uploaded', 'mimetype(["image/png","image/jpeg"])', 'max_filesize("3MiB")', 'min_dimensions(752, 423)'],
+            ],
+        ],
     ],
 
 ];
