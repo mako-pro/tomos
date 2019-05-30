@@ -2,7 +2,6 @@
 
 namespace placer\tomos\models;
 
-use mako\utility\UUID;
 use mako\database\midgard\ORM;
 use mako\database\midgard\traits\TimestampedTrait;
 
@@ -12,7 +11,7 @@ class Profile extends ORM
 
     protected $tableName = 'tomos_profiles';
 
-    protected $primaryKeyType = ORM::PRIMARY_KEY_TYPE_UUID;
+    protected $primaryKeyType = ORM::PRIMARY_KEY_TYPE_CUSTOM;
 
     /**
      * Generates a primary key
@@ -21,7 +20,15 @@ class Profile extends ORM
      */
     protected function generatePrimaryKey()
     {
-        return UUID::v4();
+        $hash = sha1(uniqid(true));
+        $uuid = substr($hash, 0, 12);
+
+        while ($this->get($uuid))
+        {
+            $uuid = substr(str_shuffle($hash), 0, 12);
+        }
+
+        return $uuid;
     }
 
     /**
