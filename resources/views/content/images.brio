@@ -137,7 +137,7 @@
         </div>
         <div class="clearfix px-3 py-3">
           <button class="btn btn-secondary float-left ml-1 mb-1" type="button" data-dismiss="modal">Cancel</button>
-          <button class="btn btn-primary float-right mr-1 mb-1" type="button" id="editimgButton">Save Image</button>
+          <button class="btn btn-primary float-right mr-1 mb-1" type="button" id="editimgButton">Save Changes</button>
         </div>
       </div>
     </div>

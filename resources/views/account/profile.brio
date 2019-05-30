@@ -74,7 +74,11 @@
           <div class="card-body overflow-hidden">
             <div class="row no-gutters">
               {foreach $images as $image}
-                <div class="col-{if $image->orient == 'land'}6{else}4{/if} p-1 image-item">
+                {if $image->orient == 'land'}
+                <div class="col-6 p-1 image-item">
+                {else}
+                <div class="col-4 p-1 image-item">
+                {/if}
                   <a class="image-link" href="{url()->to("/placer/tomos/uploads/{$image->path}/{$image->file_name}.{$image->file_ext}")}" data-title="{$image->title}" data-text="{$image->text}">
                     <img class="rounded w-100" src="{url()->to("/placer/tomos/uploads/{$image->path}/__{$image->file_name}.jpg")}" alt="" />
                   </a>
