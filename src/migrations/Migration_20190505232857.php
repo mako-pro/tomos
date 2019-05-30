@@ -21,7 +21,7 @@ class Migration_20190505232857 extends Migration
 		$this->getConnection()->query
 		(
 			"CREATE TABLE `tomos_profiles` (
-				`id` char(36) NOT NULL,
+				`id` char(12) NOT NULL,
 				`user_id` int(11) unsigned NOT NULL,
 				`first_name` varchar(64) DEFAULT '',
 				`last_name` varchar(64) DEFAULT '',

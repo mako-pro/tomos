@@ -25,7 +25,7 @@ class Migration_20190526144723 extends Migration
 				`parent_id` int(11) unsigned NOT NULL DEFAULT '0',
 				`category_id` int(11) unsigned NOT NULL DEFAULT '1',
 				`user_id` int(11) unsigned NOT NULL,
-				`uuid` char(10) NOT NULL,
+				`uuid` char(8) NOT NULL,
 				`slug` varchar(255) NOT NULL DEFAULT '',
 				`page` int(4) unsigned NOT NULL DEFAULT '1',
 				`cover` varchar(60) NOT NULL DEFAULT '',
