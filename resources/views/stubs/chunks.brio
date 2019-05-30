@@ -1,0 +1,42 @@
+<div class="navbar-glass-shadow"></div>
+<div class="show"></div>
+<div class="collapsing"></div>
+<div class="collapse"></div>
+<div class="collapsed"></div>
+<div class="data-api"></div>
+<div class="tooltip  show arrow tooltip-inner bs-tooltip-auto bs-tooltip-top bs-tooltip-right bs-tooltip-bottom bs-tooltip-left" role="tooltip"></div>
+
+<div class="text-danger border-danger"></div>
+
+<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+
+<div class="alert alert-success" role="alert"></div>
+<div class="alert alert-danger" role="alert"></div>
+<div class="alert alert-warning" role="alert"></div>
+<div class="alert alert-info" role="alert"></div>
+
+<div class="alert alert-danger alert-dismissible fade show clearfix" role="alert">
+	<div class="float-left align-middle fs-1">
+		<i class="fas fa-exclamation-triangle"></i>
+	</div>
+	<div class="col-11 float-right pl-1 fs--1">The title field is required.</div>
+	<button class="close outline-none" type="button" data-dismiss="alert" aria-label="Close">
+		<span class="font-weight-light" aria-hidden="true">×</span>
+	</button>
+</div>
+
+<div class="alert alert-danger alert-dismissible fade show" role="alert">
+    The provided credentials are invalid!    
+    <button class="close outline-none" type="button" data-dismiss="alert" aria-label="Close">
+       <span class="font-weight-light" aria-hidden="true">×</span>
+    </button>
+</div>
+ 
+<div class="alert alert-success alert-dismissible fade show" role="alert">
+    Your Email address is verified! Now login, please.    
+    <button class="close outline-none" type="button" data-dismiss="alert" aria-label="Close">
+        <span class="font-weight-light" aria-hidden="true">×</span>
+    </button>
+</div>
+
+
